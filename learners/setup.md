@@ -26,9 +26,9 @@ To install R and RStudio on a personal laptop
 
 #### Windows/Mac
 
-- R can be downloaded [here](https://www.stats.bris.ac.uk/R/). Select the precompiled binary distribution for your operating system.
+- R can be downloaded from the [CRAN](https://cloud.r-project.org/) repository. Select the precompiled binary distribution for your operating system.
 
-- RStudio is an environment for code development using R. It can be downloaded [here](https://www.rstudio.com/products/rstudio/download/). You will need the Desktop version for your computer; scroll to the bottom of the page for links.
+- RStudio is an environment for code development using R. The [RStudio docs](https://docs.posit.co/ide/user/download.html) provide a link to download RStudio Desktop.
 
 ::::::::::::::::::::::::
 
@@ -43,7 +43,7 @@ To install R and RStudio on a University managed Windows machine:
 
 - Search for and install "RStudio". 
 
-- This will also automatically install R for Windows 4.3.1 and Rtools.
+- This will also automatically install R for Windows and Rtools.
 
 #### Mac
 
