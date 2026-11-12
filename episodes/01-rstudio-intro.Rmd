@@ -120,6 +120,10 @@ One of the most powerful and useful aspects of RStudio is its project management
 functionality. We'll be using this today to create a self-contained, reproducible
 project.
 
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 1: Creating a self-contained project
+
 We're going to create a new project in RStudio:
 
 1. Click the "File" menu button, then "New Project".
@@ -128,6 +132,8 @@ We're going to create a new project in RStudio:
 4. Type in the name of the directory to store your project, e.g. "my\_project".
 5. If available, select the checkbox for "Create a git repository."
 6. Click the "Create Project" button.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Best practices for project organization
 
@@ -174,11 +180,16 @@ project, and some of the analyses get shared between projects.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-#### Use Project Subfolders
-Create `data`, `src`, and `results` directories in your project directory.
+:::::::::::::::::::::::::::::::::::::::  challenge
 
-Copy the files penguins_teaching.csv, weather-data.csv, and weather-data_v2.csv files from the zip file you downloaded as part of the lesson set up to the data/ folder within your project. We will load and use these files later in the course.
+## Challenge 2: Set up project directories
 
+1. Create `data`, `src`, and `results` directories in your project directory.
+
+2. Copy the files `penguins_teaching.csv`, `weather-data.csv`, and `weather-data_v2.csv` files from the zip file you downloaded as part of the lesson set up to the data/ folder within your project. We will load and use these files later in the course.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -756,7 +767,7 @@ vector are `TRUE`).
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 1
+## Challenge 3
 
 Which of the following are valid R variable names?
 
@@ -773,7 +784,7 @@ celsius2kelvin
 
 :::::::::::::::  solution
 
-## Solution to challenge 1
+## Solution to challenge 3
 
 The following can be used as R variables:
 
@@ -805,7 +816,7 @@ min-length
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 2
+## Challenge 4
 
 What will be the value of each variable  after each
 statement in the following program?
@@ -819,7 +830,7 @@ depth <- depth - 20
 
 :::::::::::::::  solution
 
-## Solution to challenge 2
+## Solution to challenge 4
 
 ```{r ch2pt1-sol}
 mass <- 47.5
@@ -854,14 +865,14 @@ of `r depth` to the variable depth.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 3
+## Challenge 5
 
 Run the code from the previous challenge, and write a command to
 compare mass to depth. Is mass larger than depth?
 
 :::::::::::::::  solution
 
-## Solution to challenge 3
+## Solution to challenge 5
 
 One way of answering this question in R is to use the `>` to set up the following:
 
@@ -876,12 +887,12 @@ This should yield a boolean value of TRUE since `r mass` is greater than `r dept
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::: challenge
-## Challenge 4
+## Challenge 6
 
 Return a vector containing the letters of the alphabet in reverse order
 
 :::::::::::::::  solution
-## Solution to challenge 4
+## Solution to challenge 6
 We can extract the elements in reverse order by generating the sequence
 26, 25, ... 1 using the `:` operator:
 
@@ -905,7 +916,7 @@ letters[length(letters):1]
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 5
+## Challenge 7
 
 Given the following code:
 
@@ -923,7 +934,7 @@ x[2:4]
 After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
 
 :::::::::::: solution
-## Solution to challenge 5
+## Solution to challenge 7
 
 ```{r}
 x[2:4]
