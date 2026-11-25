@@ -18,21 +18,11 @@ source: Rmd
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - How can I read data into R?
+- How can I save data created or processed in R?
 - What are the basic data types in R?
 - How can I work with subsets of data in R?
-- How do I represent and work with categorical data in R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-```{r, include=FALSE}
-```
-
-```{r, include=FALSE}
-options(stringsAsFactors = FALSE)
-weather_orig <- data.frame(island = c("torgersen", "biscoe", "dream"), temperature = c(1.6, 1.5, -2.6), snowfall = c(0, 0, 1), stringsAsFactors = FALSE)
-weather_bad <- data.frame(island = c("torgersen", "biscoe", "dream","deception"), temperature = c(1.6, 1.5, -2.6, "-3.4 or 3.5"), snowfall = c(1, 0, 1, 1), stringsAsFactors = FALSE)
-weather <- weather_orig
-```
 
 ## Read and write tabular data
 
@@ -83,36 +73,6 @@ for files where the data are separated with commas and `read.delim` for files
 where the data are separated with tabs. Of these three functions `read.csv` is
 the most commonly used.  If needed it is possible to override the default
 delimiting punctuation marks for both `read.csv` and `read.delim`.
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-### Check your data for factors
-
-In recent times, the default way how R handles textual data has changed. Text
-data was interpreted by R automatically into a format called "factors". But
-there is an easier format that is called "character". We will hear about
-factors later, and what to use them for. For now, remember that in most cases,
-they are not needed and only complicate your life, which is why newer R
-versions read in text as "character". Check now if your version of R has
-automatically created factors and convert them to "character" format:
-
-1. Check the data types of your input by typing `str(weather)`
-2. In the output, look at the three-letter codes after the colons: If you see
-  only "num" and "chr", you can continue with the lesson and skip this box.
-  If you find "fct", continue to step 3.
-3. Prevent R from automatically creating "factor" data. That can be done by
-  the following code: `options(stringsAsFactors = FALSE)`. Then, re-read
-  the weather table for the change to take effect.
-4. You must set this option every time you restart R. To not forget this,
-  include it in your analysis script before you read in any data, for example
-  in one of the first lines.
-5. For R versions greater than 4.0.0, text data is no longer converted to
-  factors anymore. So you can install this or a newer version to avoid this
-  problem. If you are working on an institute or company computer, ask your
-  administrator to do it.
-  
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We can begin exploring our dataset right away, pulling out columns by specifying
 them using the `$` operator:
@@ -805,13 +765,9 @@ weather
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use `read.csv` to read tabular data in R.
+- Use `save.csv` to save tabular data to a file.
 - The basic data types in R are double, integer, complex, logical, and character.
 - Data structures such as data frames are built on top of lists and vectors, with some added attributes.
-- Indexing in R starts at 1, not 0.
-- Access individual values by location using `[]`.
-- Access slices of data using `[low:high]`.
-- Access arbitrary sets of data using `[c(...)]`.
-- Use logical operations and logical vectors to access subsets of data.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 

@@ -857,9 +857,11 @@ We recommend the following resources for some additional reading on the topic of
 - Use RStudio to write and run R programs.
 - R has the usual arithmetic operators and mathematical functions.
 - Use `<-` to assign values to variables.
-- Use RStudio to create and manage projects with a consistent structure.
-- Treat raw data as read-only.
-- Treat generated output as disposable.
+- Indexing in R starts at 1, not 0.
+- Access individual values by location using `[]`.
+- Access slices of data using `[low:high]`.
+- Access arbitrary sets of data using `[c(...)]`.
+- Use logical operations and logical vectors to access subsets of data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

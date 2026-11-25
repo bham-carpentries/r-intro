@@ -217,7 +217,6 @@ df <- cbind(df, coffeetime = c(TRUE,TRUE))
 - Use `cbind()` to add a new column to a data frame.
 - Use `rbind()` to add a new row to a data frame.
 - Use `str()`, `summary()`, nrow()`, `ncol()`, `dim()`, `colnames()`, `head()`, and `typeof()` to understand the structure of a data frame.
-- Read in a csv file using `read.csv()`.
 - Understand what `length()` of a data frame represents.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::

@@ -34,6 +34,14 @@ title: 'Reference'
 
 ## [Data structures](episodes/03-data-structures-and-subsetting.Rmd)
 
+- `read.csv` to read in data in a regular structure
+  - `sep` argument to specify the separator
+    - "," for comma separated
+    - "\\t" for tab separated
+  - Other arguments:
+    - `header=TRUE` if there is a header row
+- `write.csv` to write out a data frame as a CSV file
+
 Individual values in R must be one of 5 **data types**, multiple values can be grouped in **data structures**.
 
 **Data types**
@@ -66,14 +74,9 @@ Individual values in R must be one of 5 **data types**, multiple values can be g
 - atomic `?vector` (can only contain one type)
 - `?list` (containers for other objects)
 - `?data.frame` two dimensional objects whose columns can contain different types of data
-- `?matrix` two dimensional objects that can contain only one type of data.
-- `?factor` vectors that contain predefined categorical data.
-- `?array` multi-dimensional objects that can only contain one type of data
 
-Remember that matrices are really atomic vectors underneath the hood, and that
-data.frames are really lists underneath the hood (this explains some of the weirder
-behaviour of R).
-
+## [Exploring Data Frames](episodes/04-exploring-dataframes.Rmd)
+    
 **Useful functions for querying data structures:**
 
 - `?str` structure, prints out a summary of the whole data structure
@@ -88,15 +91,6 @@ behaviour of R).
 - `?length` get the number of elements in an atomic vector
 - `?nrow`, `?ncol`, `?dim` get the dimensions of a n-dimensional object
   (Won't work on atomic vectors or lists).
-
-## [Exploring Data Frames](episodes/04-exploring-dataframes.Rmd)
-
-- `read.csv` to read in data in a regular structure
-  - `sep` argument to specify the separator
-    - "," for comma separated
-    - "\\t" for tab separated
-  - Other arguments:
-    - `header=TRUE` if there is a header row
 
 ## [Seeking help](episodes/05-seeking-help.Rmd)
 
