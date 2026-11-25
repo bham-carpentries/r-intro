@@ -67,6 +67,18 @@ in the top left.
 
 ![](fig/01-rstudio-script.png){alt='RStudio layout with .R file open'}
 
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## R scripts
+
+Any commands that you write in the R console can be saved to a file
+to be re-run again.  Files containing R code to be run in this way are
+called R scripts.  R scripts have `.R` at the end of their names to
+let you know what they are.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ## Workflow within RStudio
 
 There are two main ways one can work within RStudio:
@@ -107,18 +119,6 @@ including the modifications you have made.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## R scripts
-
-Any commands that you write in the R console can be saved to a file
-to be re-run again.  Files containing R code to be run in this way are
-called R scripts.  R scripts have `.R` at the end of their names to
-let you know what they are.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 ## Introduction to R
 
 Much of your time in R will be spent in the R interactive
@@ -318,6 +318,22 @@ numeric tolerance).
 Instead you should use the `all.equal` function.
 
 Further reading: [http://floating-point-gui.de/](https://floating-point-gui.de/)
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 1
+
+From the menu, choose File > New file > R Script to open an R Script.
+
+Go to the History tab in the top right pane, select some of the commands 
+that you have run interactively and click the "To Source" button to add them to 
+your script. You can select multiple lines by left-clicking on one line and 
+holding the shift key while you left-click a later line.
+
+Practice the different ways to run segments of the code described in the 
+[Workflow within RStudio](#workflow-within-rstudio) section
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -623,7 +639,7 @@ vector are `TRUE`).
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 1
+## Challenge 2
 
 Which of the following are valid R variable names?
 
@@ -640,7 +656,7 @@ celsius2kelvin
 
 :::::::::::::::  solution
 
-## Solution to challenge 1
+## Solution to challenge 2
 
 The following can be used as R variables:
 
@@ -672,7 +688,7 @@ min-length
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 2
+## Challenge 3
 
 What will be the value of each variable  after each
 statement in the following program?
@@ -686,7 +702,7 @@ depth <- depth - 20
 
 :::::::::::::::  solution
 
-## Solution to challenge 2
+## Solution to challenge 3
 
 ```{r ch2pt1-sol}
 mass <- 47.5
@@ -721,14 +737,14 @@ of `r depth` to the variable depth.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 3
+## Challenge 4
 
 Run the code from the previous challenge, and write a command to
 compare mass to depth. Is mass larger than depth?
 
 :::::::::::::::  solution
 
-## Solution to challenge 3
+## Solution to challenge 4
 
 One way of answering this question in R is to use the `>` to set up the following:
 
@@ -743,12 +759,12 @@ This should yield a boolean value of TRUE since `r mass` is greater than `r dept
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::: challenge
-## Challenge 4
+## Challenge 5
 
 Return a vector containing the letters of the alphabet in reverse order
 
 :::::::::::::::  solution
-## Solution to challenge 4
+## Solution to challenge 5
 We can extract the elements in reverse order by generating the sequence
 26, 25, ... 1 using the `:` operator:
 
@@ -772,7 +788,7 @@ letters[length(letters):1]
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 5
+## Challenge 6
 
 Given the following code:
 
@@ -790,7 +806,7 @@ x[2:4]
 After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
 
 :::::::::::: solution
-## Solution to challenge 5
+## Solution to challenge 6
 
 ```{r}
 x[2:4]
