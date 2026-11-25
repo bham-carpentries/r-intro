@@ -82,8 +82,8 @@ weather$temperature
 weather$island
 ```
 
-We can also use the subsetting operator []  on our data frame. While a vector is one dimensional, a data
-frame is two dimensional, so we pass two arguments to the [] operator.
+We can also use the subsetting operator `[]`  on our data frame. While a vector is one dimensional, a data
+frame is two dimensional, so we pass two arguments to the `[]` operator.
 
 The first argument indicates the row(s) we require and the second indicates the columns. 
 So to return rows 1 and 2, and columns 2 and 3 we can use:
@@ -119,12 +119,21 @@ data something is:
 typeof(weather$temperature)
 ```
 
+A double is a data type that can represent decimal numbers.
+
 There are 5 main types: `double`, `integer`, `complex`, `logical` and `character`.
 For historic reasons, `double` is also called `numeric`.
 
 ```{r}
 typeof(3.14)
-typeof(1L) # The L suffix forces the number to be an integer, since by default R uses float numbers
+```
+A whole number will still be stored as a double by default. 
+Adding an `L` suffix forces the number to be stored as a "long integer".
+```{r}
+typeof(1)
+typeof(1L)
+```
+```{r}
 typeof(1+1i)
 typeof(TRUE)
 typeof('banana')
@@ -191,7 +200,7 @@ my_vector <- vector(length=3)
 my_vector
 ```
 
-A vector in R is essentially an ordered list of things, with the special
+A vector in R is essentially a list of things, with the special
 condition that *everything in the vector must be the same basic data type*. If
 you don't choose the datatype, it'll default to `logical`; or, you can declare
 an empty vector of whatever type you like.
@@ -218,7 +227,7 @@ str(weather$temperature)
 ```
 
 we see that `weather$temperature` is a vector, too - *the columns of data we load into R
-data.frames are all vectors*, and that's the root of why R forces everything in
+data frames are all vectors*, and that's the root of why R forces everything in
 a column to be the same basic data type.
 
 
@@ -235,7 +244,6 @@ Given what we've learned so far, what do you think the following will produce?
 
 ```{r}
 quiz_vector <- c(2,6,'3')
-quiz_vector
 ```
 
 This is something called *type coercion*, and it is the source of many surprises
@@ -281,7 +289,7 @@ As you can see, some surprising things can happen when R forces one basic data
 type into another! Nitty-gritty of type coercion aside, the point is: if your
 data doesn't look like what you thought it was going to look like, type coercion
 may well be to blame; make sure everything is the same type in your vectors and
-your columns of data.frames, or you will get nasty surprises!
+your columns of data frames, or you will get nasty surprises!
 
 But coercion can also be very useful! For example, in our `weather` data
 `snowfall` is numeric, but we know that the 1s and 0s actually represent
@@ -536,7 +544,7 @@ The elements of lists also can have **names**, they can be given by prepending
 them to the values, separated by an equals sign:
 
 ```{r}
-another_list <- list(title = "Numbers", numbers = 1:10, data = TRUE )
+another_list <- list(title = "Numbers", numbers = 1:10, data = TRUE)
 another_list
 ```
 
@@ -558,10 +566,10 @@ object, for example, like here, accessing an element by a self-defined name.
 ### Accessing vectors and lists by name
 
 We have already seen how to generate a named list. The way to generate a named
-vector is very similar. You have seen this function before:
+vector is very similar.
 
 ```{r}
-pizza_price <- c( pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50 )
+pizza_price <- c(pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50)
 ```
 
 The way to retrieve elements is different, though:
@@ -607,14 +615,14 @@ data frame:
 weather
 ```
 
-We can now understand something a bit surprising in our data.frame; what happens
+We can now understand something a bit surprising in our data frame; what happens
 if we run:
 
 ```{r}
 typeof(weather)
 ```
 
-We see that data.frames look like lists 'under the hood'. Think again what we
+We see that data frames look like lists 'under the hood'. Think again what we
 heard about what lists can be used for:
 
 > Lists organize data of different types
@@ -622,7 +630,7 @@ heard about what lists can be used for:
 Columns of a data frame are vectors of different types, that are organized
 by belonging to the same table.
 
-A data.frame is really a list of vectors. It is a special list in which all the
+A data frame is really a list of vectors. It is a special list in which all the
 vectors must have the same length.
 
 How is this "special"-ness written into the object, so that R does not treat it
@@ -643,7 +651,7 @@ five data types), whereas the output of `class()` is *diverse* and *extendable*
 by R packages.
 
 In our `weather` example, we have an integer, a double and a logical variable. As
-we have seen already, each column of data.frame is a vector.
+we have seen already, each column of data frame is a vector.
 
 ```{r}
 weather$island
@@ -652,7 +660,7 @@ typeof(weather[,1])
 str(weather[,1])
 ```
 
-Each row is an *observation* of different variables, itself a data.frame, and
+Each row is an *observation* of different variables, itself a data frame, and
 thus can be composed of elements of different types.
 
 ```{r}
@@ -666,7 +674,7 @@ str(weather[1,])
 ### Challenge 1
 
 There are several subtly different ways to call variables, observations and
-elements from data.frames:
+elements from data frames:
 
 - `weather[1]`
 - `weather[[1]]`
