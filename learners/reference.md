@@ -87,7 +87,7 @@ Individual values in R must be one of 5 **data types**, multiple values can be g
 - `?rownames`, `?colnames`, `?dimnames` retrieve or modify the row names
   and column names of an object.
 - `?names` retrieve or modify the names of an atomic vector or list (or
-  columns of a data.frame).
+  columns of a data frame).
 - `?length` get the number of elements in an atomic vector
 - `?nrow`, `?ncol`, `?dim` get the dimensions of a n-dimensional object
   (Won't work on atomic vectors or lists).
@@ -110,7 +110,7 @@ Individual values in R must be one of 5 **data types**, multiple values can be g
 - `?filter` return rows with matching conditions.
 - `?group_by` group data by one of more variables.
 - `?summarize` summarize multiple values to a single value.
-- `?mutate` add new variables to a data.frame.
+- `?mutate` add new variables to a data frame.
 - Combine operations using the `?"|>"` pipe operator.
 
 ## [Creating publication quality graphics](episodes/07-plot-ggplot2.Rmd)

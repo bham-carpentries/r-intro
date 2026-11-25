@@ -405,7 +405,7 @@ symbol used in the community. So the recommendation is to use `<-`.
 ## Vectorization
 
 One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. A vector is 1 dimensional array of ordered values all of the same data type. For example:
+variables and functions can have vectors as values. A vector is 1 dimensional array of values all of the same data type. For example:
 
 ```{r}
 1:5
@@ -515,10 +515,10 @@ x == NA
 
 There are a number of special functions you can use to handle missing data, and other special values:
 
- * `is.na` will return all positions in a vector, matrix, or data.frame
+ * `is.na` will return all positions in a vector, matrix, or data frame
    containing `NA`.
  * likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
- * `is.finite` will return all positions in a vector, matrix, or data.frame
+ * `is.finite` will return all positions in a vector, matrix, or data frame
    that do not contain `NA`, `NaN` or `Inf`.
  * `na.omit` will filter out all missing values from a vector
 

@@ -119,7 +119,7 @@ can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
 a data frame to a tibble, use `as.tibble(mydataframe)`.
  
 Tibbles behave more consistently than data frames when subsetting with `[]`; 
-this will always return another tibble.  This isn't the case when working with  data.frames.  You can find out more about the differences  between data.frames and 
+this will always return another tibble.  This isn't the case when working with data frames.  You can find out more about the differences between data frames and 
 tibbles by typing `vignette("tibble")`.
  
 :::::::::::
