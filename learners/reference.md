@@ -25,12 +25,14 @@ title: 'Reference'
 - Use `all.equal` to compare numbers!
 - `<-` is the assignment operator. Anything to the right is evaluate, then
   stored in a variable named to the left.
-- `ls` lists all variables and functions you've created
-- `rm` can be used to remove them
-- When assigning values to function arguments, you *must* use `=`.
 
 
-## [Data structures](episodes/02-data-structures-and-subsetting.Rmd)
+## [Project management with RStudio](episodes/02-project-management-with-rstudio.Rmd)
+
+- To create a new project, go to File -> New Project
+- To open a project, double click the `.Rproj` file in your file browser
+
+## [Data structures](episodes/03-data-structures-and-subsetting.Rmd)
 
 Individual values in R must be one of 5 **data types**, multiple values can be grouped in **data structures**.
 
@@ -87,7 +89,7 @@ behaviour of R).
 - `?nrow`, `?ncol`, `?dim` get the dimensions of a n-dimensional object
   (Won't work on atomic vectors or lists).
 
-## [Exploring Data Frames](episodes/03-exploring-dataframes.Rmd)
+## [Exploring Data Frames](episodes/04-exploring-dataframes.Rmd)
 
 - `read.csv` to read in data in a regular structure
   - `sep` argument to specify the separator
@@ -96,7 +98,7 @@ behaviour of R).
   - Other arguments:
     - `header=TRUE` if there is a header row
 
-## [Seeking help](episodes/04-seeking-help.Rmd)
+## [Seeking help](episodes/05-seeking-help.Rmd)
 
 - To access help for a function type `?function_name` or `help(function_name)`
 - Use quotes for special operators e.g. `?"+"`
@@ -107,7 +109,7 @@ behaviour of R).
   - `sessionInfo()` will give details of your setup that others may need for debugging.
 
 
-## [Dataframe manipulation with dplyr](episodes/05-dplyr.Rmd)
+## [Dataframe manipulation with dplyr](episodes/06-dplyr.Rmd)
 
 - `library(dplyr)`
 - `?select` to extract variables by name.
@@ -117,7 +119,7 @@ behaviour of R).
 - `?mutate` add new variables to a data.frame.
 - Combine operations using the `?"|>"` pipe operator.
 
-## [Creating publication quality graphics](episodes/06-plot-ggplot2.Rmd)
+## [Creating publication quality graphics](episodes/07-plot-ggplot2.Rmd)
 
 - figures can be created with the grammar of graphics:
   - `library(ggplot2)`

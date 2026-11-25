@@ -35,7 +35,7 @@ license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
 source: 'https://github.com/bham-carpentries/2024-11-26-r-intro'
- 
+
 # Default branch of your lesson
 branch: 'main'
 
@@ -67,12 +67,13 @@ contact: 'k.r.kopec-harding@bham.ac.uk'
 # Order of episodes in your lesson
 episodes:
 - 01-rstudio-intro.Rmd
-- 02-data-structures-and-subsetting.Rmd
-- 03-exploring-dataframes.Rmd
-- 04-seeking-help.Rmd
-- 05-dplyr.Rmd
-- 06-plot-ggplot2.Rmd
-- 07-wrap.Rmd
+- 02-project-management-with-rstudio.Rmd
+- 03-data-structures-and-subsetting.Rmd
+- 04-exploring-dataframes.Rmd
+- 05-seeking-help.Rmd
+- 06-dplyr.Rmd
+- 07-plot-ggplot2.Rmd
+- 08-wrap.Rmd
 
 # Information for Learners
 learners:
