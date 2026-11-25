@@ -110,8 +110,7 @@ Tibbles can for the most part, be treated like a `data.frame`.
 
 ::::::::::: callout 
 R's standard data structure for tabular data is the `data.frame`.  In
-contrast, `read_csv()` creates a `tibble` (also referred to, for historic
-reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+contrast, `read_csv()` creates a `tibble`.  This extends the functionality of  a `data.frame`,
 and can, for the most part, be treated like a `data.frame`.
  
 You may find that some older functions don't work on tibbles.   A tibble
@@ -378,10 +377,10 @@ head(bm_byyear_byisland_byspecies)
 
 ![An illustration of the mutate function [Artwork by @allison_horst](https://twitter.com/allison_horst)](fig/mutate_ccby4_artwork_by_at_allison_horst.png){alt='Cartoon of cute fuzzy monsters dressed up as different X-men characters, working together to add a new column to an existing data frame. Stylized title text reads "dplyr::mutate - add columns, keep existing."'}
 
-## Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: if_else
 
 When creating new variables, we can hook this with a logical condition. A simple combination of
-`mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
+`mutate()` and `if_else()` facilitates filtering right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the data frame will not change) or for updating values depending on this given condition.
 
@@ -390,7 +389,7 @@ of the data frame will not change) or for updating values depending on this give
 # calculate bill length / depth ratio for only for Adelie penguins
 bill_morph_adelie <- penguins |>
     mutate(
-      bill_ratio = ifelse(
+      bill_ratio = if_else(
         species == "Adelie", 
         bill_length_mm/bill_depth_mm, 
         NA
