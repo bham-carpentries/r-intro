@@ -150,23 +150,37 @@ If you're not sure what package a function is in, or how it's specifically spell
 ??function_name
 ```
 
-## When your code doesn't work: seeking help from your peers
+# Other ways to get help
 
-If you're having trouble using a function, 9 times out of 10,
-the answers you are seeking have already been answered on
-[Stack Overflow](https://stackoverflow.com/). You can search using
-the `[r]` tag.
+There are several other ways that people often get help when they are stuck with their R code.
 
-If you can't find the answer, there are a few useful functions to
-help you ask a question from your peers:
+* Search the internet: paste the last line of your error message or “R” and a short description of what you want to do into your favorite search engine and you will usually find several examples where other people have encountered the same problem and came looking for help.
+* Ask somebody “in the real world”. If you have a colleague or friend with more expertise in R than you have, show them the problem you are having and ask them for help.
+* Sometimes, the act of articulating your question can help you to identify what is going wrong. This is known as “rubber duck debugging” among programmers.
 
-```{r, eval=FALSE}
-?dput
-```
+::: callout
 
-Will dump the data you're working with into a format so that it can
-be copy and pasted by anyone else into their R session.
+Tip: Generative AI
 
+While responses from generative AI tools can often be helpful, they are not always reliable. 
+It is essential to verify the accuracy of information found this way, which requires being able to understand code as you read it and being able to fix any errors that occur when you try running code provided by genAI tools.
+We recommend avoiding using genAI tools as an R beginner:
+
+* For most beginner issues, reliable help and answers can be found through an internet search
+* Trying to solve issues yourself - with the help of teaching materials and the R help files - will help you build the foundational knowledge to judge genAI responses
+
+:::
+
+## When your code doesn't work
+
+Try to create a **minimal reproducible example**. Start a fresh R session and 
+in a new R script, try to reproduce the problem you are facing with minimal code
+
+* Avoid loading packages that must be installed from CRAN or elsewhere. 
+    * If the issue is with a function from an add-on package, try to only load that package.
+* Avoid sharing data
+    * Use an in-built data set like `mtcars`
+    * Create a toy data frame or other small objects (vectors, lists)
 
 ## Package versions
 
