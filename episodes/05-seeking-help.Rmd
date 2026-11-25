@@ -149,15 +149,6 @@ If you're not sure what package a function is in, or how it's specifically spell
 ```{r, eval=FALSE}
 ??function_name
 ```
-::: callout
-
-## Citing R and R packages
-
-If you use R in your work you should cite it, and the packages you use. The
-`citation()` command will return the appropriate citation for R itself.  
-`citation(packagename)` will provide the citation for `packagename`.
-
-:::
 
 ## When your code doesn't work: seeking help from your peers
 
@@ -243,6 +234,17 @@ vignette(package="dplyr", "dplyr")
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::: callout
+
+## Citing R and R packages
+
+If you use R in your work you should cite it, and the packages you use. The
+`citation()` command will return the appropriate citation for R itself.  
+`citation(packagename)` will provide the citation for `packagename`. 
+In both cases, the default citation includes the version number you are currently using.
+
+:::
 
 ## Managing your environment
 
