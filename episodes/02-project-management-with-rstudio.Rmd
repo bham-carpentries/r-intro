@@ -120,6 +120,8 @@ project, and some of the analyses get shared between projects.
 4. Put source for the project's scripts and programs in the `src` directory, and programs brought in from elsewhere or compiled locally in the `bin` directory.
 5. Name all files to reflect their content or function.
 
+For R projects a common variation of this is to put analysis scripts in a `scripts` directory - that is the practice we will follow here.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
