@@ -256,7 +256,7 @@ exp(0.5) # e^(1/2)
 ```
 
 Don't worry about trying to remember every function in R. You
-can look them up on Google, or if you can remember the
+can look them up in a web search, or if you can remember the
 start of the function's name, use the tab completion in RStudio.
 
 This is one advantage that RStudio has over R on its own, it
