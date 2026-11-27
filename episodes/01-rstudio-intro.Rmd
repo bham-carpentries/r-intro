@@ -95,8 +95,8 @@ interactive R console.
   - You will be able to run the file you create from within RStudio
 or using R's `source()`  function.
 
-In this lesson we'll spend a lot of time working in the interactive console.
-We'll move on to creating scripts in the next lesson. 
+In this episode we'll spend a lot of time working in the interactive console.
+We'll move on to creating scripts in the next episode. 
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 

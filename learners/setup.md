@@ -3,10 +3,13 @@ title: Setup
 ---
 
 ## Data Setup 
+
 We will be using some example data in the lesson. 
 
  - [`penguins_teaching.csv`](data/penguins_teaching.csv)
  - [`weather_records.csv`](data/weather_records.csv)
+
+Download these files to your laptop and save them somewhere you will be able to find them again!
 
 ## Software Setup
 

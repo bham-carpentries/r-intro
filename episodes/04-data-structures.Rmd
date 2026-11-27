@@ -231,7 +231,7 @@ a column to be the same basic data type.
 
 ### Coercion by combining vectors
 
-As we saw in lesson 1, you can also make vectors with explicit contents with the combine function:
+As we saw in episode 2, you can also make vectors with explicit contents with the combine function:
 
 ```{r}
 combine_vector <- c(2,6,3)
@@ -398,7 +398,7 @@ function we saw earlier to print out the data types of all columns of the
 
 ### Tip 1.2
 
-In the chapter "Data types" we saw two functions that can show data types.
+In the episode "Data types" we saw two functions that can show data types.
 One printed just a single word, the data type name. The other printed
 a short form of the data type, and the first few values. We need the second
 here.
@@ -530,7 +530,7 @@ What is the use of lists? They can **organize data of different types**. For
 example, you can organize different tables that belong together, similar to
 spreadsheets in Excel. But there are many other uses, too.
 
-We will see another example that will maybe surprise you in the next chapter.
+We will see another example that will maybe surprise you in the next episode.
 
 To retrieve one of the elements of a list, use the **double bracket**:
 
@@ -576,7 +576,7 @@ a list, but it is actually in a vector and you should use `[` instead.
 
 ## Data frames
 
-We have data frames at the very beginning of this lesson, they represent
+We have data frames at the very beginning of this episode, they represent
 a table of data. We didn't go much further into detail with our example weather
 data frame:
 
