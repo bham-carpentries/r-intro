@@ -130,7 +130,7 @@ For R projects a common variation of this is to put analysis scripts in a `scrip
 
 1. Create `data`, `src`, and `results` directories in your project directory.
 
-2. Copy the files `penguins_teaching.csv`, `weather-data.csv`, and `weather-data_v2.csv` files from the zip file you downloaded as part of the lesson set up to the `data` folder within your project. We will load and use these files later in the course.
+2. Copy the files [`penguins_teaching.csv`](data/penguins_teaching.csv) and [`weather_records.csv`](data/weather_records.csv) files to the `data` folder within your project. We will load and use these files later in the course.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::

@@ -4,9 +4,9 @@ title: Setup
 
 ## Data Setup 
 We will be using some example data in the lesson. 
-Download the file using the link below and extract it to your computer:
- - [zip file of raw data](../episodes/data/rcourse-data.zip).
 
+ - [`penguins_teaching.csv`](data/penguins_teaching.csv)
+ - [`weather_records.csv`](data/weather_records.csv)
 
 ## Software Setup
 
@@ -55,7 +55,7 @@ To install R and RStudio on a University managed Mac machine:
  
 ## Packages
 
-The course teaches the tidyverse, which is a collection of R packages that are designed to make many common data analysis tasks easier. Please install this before the course. You can do this by starting Rstudio, and typing:
+The course teaches the tidyverse, which is a collection of R packages that are designed to make many common data analysis tasks easier. Please install this before the course. You can do this by starting RStudio, and typing:
 
 ```r
 install.packages("tidyverse")
