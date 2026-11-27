@@ -1,6 +1,6 @@
 ---
 title: Introduction to R and RStudio
-teaching: 40
+teaching: 35
 exercises: 15
 source: Rmd
 ---
@@ -9,9 +9,9 @@ source: Rmd
 
 - Describe the purpose and use of each pane in RStudio
 - Locate buttons and options in RStudio
-- Define and work with variables
 - Use mathematical and comparison operators
-- Call functions
+- Assign data to a variable
+- Manage a workspace in an interactive R session
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -19,6 +19,7 @@ source: Rmd
 
 - How to find your way around RStudio?
 - How to interact with R?
+- How to manage your environment?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -402,240 +403,107 @@ But this is much less common among R users.  The most important thing is to
 where it is less confusing to use `<-` than `=`, and it is the most common
 symbol used in the community. So the recommendation is to use `<-`.
 
-## Vectorization
+## Managing your environment
 
-One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. A vector is 1 dimensional array of values all of the same data type. For example:
+There are a few useful commands you can use to interact with the R session.
+
+`ls` will list all of the variables and functions stored in the global environment
+(your working R session):
+
+```{r, eval=FALSE}
+ls()
+```
+
+```{r, echo=FALSE}
+# If `ls()` is left to run by itself when rendering this Rmd document (as would
+# happen if the code chunk above was evaluated), the output would contain extra
+# items ("args", "dest_md", "op", "src_md") that people following the lesson
+# would not see in their own session.
+#
+# This probably comes from the way the md episodes are generated when the
+# lesson website is built. The solution below uses a temporary environment to
+# mimick what the learners should observe when running `ls()` on their
+# machines.
+
+temp.env <- new.env()
+temp.env$x <- x
+temp.env$y <- y
+ls(temp.env)
+rm(temp.env)
+```
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Tip: hidden objects
+
+Like in the shell, `ls` will hide any variables or functions starting
+with a "." by default. To list all objects, type `ls(all.names=TRUE)`
+instead
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Note here that we didn't give any arguments to `ls`, but we still
+needed to give the parentheses to tell R to call the function.
+
+If we type `ls` by itself, R prints a bunch of code instead of a listing of objects.
 
 ```{r}
-1:5
+ls
 ```
 
-We can assign a vector to a variable:
+What's going on here?
+
+Like everything in R, `ls` is the name of an object, and entering the name of
+an object by itself prints the contents of the object. The object `x` that we
+created earlier contains `r x`:
 
 ```{r}
-x <- 5:10
+x
 ```
 
-We can apply functions to all the elements of a vector:
+The object `ls` contains the R code that makes the `ls` function work! We'll talk
+more about how functions work and start writing our own later.
 
-```{r}
-(1:5) * 2
-2^(1:5)
+You can use `rm` to delete objects you no longer need:
+
+```{r, eval=FALSE}
+rm(x)
 ```
 
-We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
+If you have lots of things in your environment and want to delete all of them,
+you can pass the results of `ls` to the `rm` function:
 
-```{r}
-c(2, 4, -1)
-c(x, 2, 2, 3)
+```{r, eval=FALSE}
+rm(list = ls())
 ```
 
-Vectors aren't limited to storing numbers:
+In this case we've combined the two. Like the order of operations, anything
+inside the innermost parentheses is evaluated first, and so on.
 
-```{r}
-c("a", "b", "c", "def")
+In this case we've specified that the results of `ls` should be used for the
+`list` argument in `rm`. When assigning values to arguments by name, you *must*
+use the `=` operator!!
+
+If instead we use `<-`, there will be unintended side effects, or you may get an error message:
+
+```{r, error=TRUE}
+rm(list <- ls())
 ```
 
-R comes with a few built in constants, containing useful values:
-```{r, eval = FALSE}
-LETTERS
-letters
-month.abb
-month.name
-```
+:::::::::::::::::::::::::::::::::::::::::  callout
 
-We will use some of these in the examples that follow.
+## Tip: Warnings vs. Errors
 
-### Vector lengths
+Pay attention when R does something unexpected! Errors, like above,
+are thrown when R cannot proceed with a calculation. Warnings on the
+other hand usually mean that the function has run, but it probably
+hasn't worked as expected.
 
-We can calculate how many elements a vector contains using the `length()` function:
+In both cases, the message that R prints out usually give you clues
+how to fix a problem.
 
-```{r}
-length(x)
-length(letters)
-```
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-### Subsetting vectors
-
-Having defined a vector, it's often useful to _extract_ parts of a vector.   We do this with the
-`[]` operator.  Using the built in `month.name` vector:
-
-```{r}
-month.name[2]
-month.name[2:4]
-```
-
-Let's unpick the second example; `2:4` generates the sequence 2,3,4.   This gets passed to the 
-extract operator `[]`.   We can also generate this sequence using the `c()` function:
-
-```{r}
-month.name[c(2,3,4)]
-```
-
-:::::::::::::: callout
-## Vector numbering in R starts at 1
-
-In many programming languages (C and python, for example), the first
-element of a vector has an index of 0. In R, the first element is 1.
-::::::::::::::
-
-Values are returned in the order that we specify the indices.  We can extract the same element more 
-than once:
-
-```{r}
-month.name[4:2]
-month.name[c(1,1,2,3,4)]
-```
-
-If we try and extract an element that doesn't exist in the vector, the missing values are `NA`:
-
-```{r}
-month.name[10:13]
-```
-
-:::::::::::::::::::: callout
-## Missing data
-
-`NA` is a special value, that is used to represent "not available", or "missing".  If we perform computations which include `NA`, the result is usually `NA`:
-
-```{r}
-1 + NA
-```
-
-This raises an interesting point; how do we test if a value is `NA`?  This doesn't work:
-
-```{r}
-x <- NA
-x == NA
-```
-
-## Handling special values
-
-There are a number of special functions you can use to handle missing data, and other special values:
-
- * `is.na` will return all positions in a vector, matrix, or data frame
-   containing `NA`.
- * likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
- * `is.finite` will return all positions in a vector, matrix, or data frame
-   that do not contain `NA`, `NaN` or `Inf`.
- * `na.omit` will filter out all missing values from a vector
-
-::::::::::::::::::::
-
-### Skipping and removing elements
-
-If we use a negative number as the index of a vector, R will return
-every element *except* for the one specified:
-
-```{r}
-month.name[-2]
-```
-
-We can skip multiple elements:
-
-```{r}
-month.name[c(-1, -5)]  # or month.name[-c(1,5)]
-```
-
-:::::::::::::::::::: callout
-## Tip: Order of operations
-
-A common error occurs when trying to skip
-slices of a vector. Most people first try to negate a
-sequence like so:
-
-```{r, error=TRUE, eval=FALSE}
-month.name[-1:3]
-```
-
-This gives a somewhat cryptic error:
-
-```{r, error=TRUE, echo=FALSE}
-month.name[-1:3]
-```
-
-But remember the order of operations. `:` is really a function, so
-what happens is it takes its first argument as -1, and second as 3,
-so generates the sequence of numbers: `-1, 0, 1, 2, 3`.
-
-The correct solution is to wrap that function call in brackets, so
-that the `-` operator is applied to the sequence:
-
-```{r}
--(1:3)
-month.name[-(1:3)]
-```
-::::::::::::::::::::
-
-### Subsetting with logical vectors 
-
-As well as providing a list of indices we want to keep (or delete, if we prefix them with `-`), we 
-can pass a _logical vector_ to R indicating the indices we wish to select:
-
-```{r}
-fourmonths <- month.name[1:4]
-fourmonths
-
-fourmonths[c(TRUE, FALSE, TRUE, TRUE)]
-```
-
-What happens if we supply a logical vector that is shorter than the vector we're extracting the elements from?
-
-```{r}
-fourmonths[c(TRUE,FALSE)]
-```
-
-This illustrates the idea of _vector recycling_; the `[]` extract operator "recycles" the subsetting vector:
-
-```{r}
-fourmonths[c(TRUE,FALSE,TRUE,FALSE)]
-```
-
-This can be useful, but can easily catch you out.
-
-The idea of selecting elements of a vector using a logical subsetting vector may seem a bit esoteric, and a lot more
-typing than just selecting the elements you want by index.  It becomes really useful when we write code to generate
-the logical vector:
-
-```{r}
-my_vector <- c(0.01, 0.69, 0.51, 0.39)
-my_vector > 0.5
-my_vector[my_vector > 0.5]
-```
-
-:::::::::::: callout
-## Tip: Combining logical conditions
-
-There are many situations in which you will wish to combine multiple logical
-criteria. For example, we might want to find all the elements that are 
-between two values. Several operations for combining logical vectors exist in R:
-
-+ `&`, the "logical AND" operator: returns `TRUE` if both the left and right
-  are `TRUE`.
-+ `|`, the "logical OR" operator: returns `TRUE`, if either the left or right
-  (or both) are `TRUE`.
-
-The recycling rule applies with both of these, so `TRUE & c(TRUE, FALSE, TRUE)`
-will compare the first `TRUE` on the left of the `&` sign with each of the
-three conditions on the right.
-
-You may sometimes see `&&` and `||` instead of `&` and `|`. These operators
-do not use the recycling rule: they only look at the first element of each
-vector and ignore the remaining elements. The longer operators are mainly used
-in programming, rather than data analysis.
-
-+ `!`, the "logical NOT" operator: converts `TRUE` to `FALSE` and `FALSE` to
-  `TRUE`. It can negate a single logical condition (e.g. `!TRUE` becomes
-  `FALSE`), or a whole vector of conditions(e.g. `!c(TRUE, FALSE)` becomes
-  `c(FALSE, TRUE)`).
-
-Additionally, you can compare the elements within a single vector using the
-`all` function (which returns `TRUE` if every element of the vector is `TRUE`)
-and the `any` function (which returns `TRUE` if one or more elements of the
-vector are `TRUE`).
-::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -756,92 +624,26 @@ This should yield a boolean value of TRUE since `r mass` is greater than `r dept
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::: challenge
-## Challenge 5
-
-Return a vector containing the letters of the alphabet in reverse order
-
-:::::::::::::::  solution
-## Solution to challenge 5
-We can extract the elements in reverse order by generating the sequence
-26, 25, ... 1 using the `:` operator:
-
-```{r}
-letters[26:1]
-```
-
-Although this works, it makes the assumption that `letters` will always be length 26.
-Although this is probably a safe assumption in English, other
-languages may have more (or fewer) letters in their alphabet.   It is good
-practice to avoid assuming _anything_ about your data.
-
-We can avoid assuming `letters` is length 26, by using the `length()` function:
-
-```{r}
-letters[length(letters):1]
-```
-:::::::::::::::
-:::::::::::::::::::::::::::::
-
-
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 6
+## Challenge 5
 
-Given the following code:
+Clean up your working environment by deleting the mass and age
+variables.
 
-```{r}
-x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
-x
+:::::::::::::::  solution
+
+## Solution to challenge 5
+
+We can use the `rm` command to accomplish this task
+
+```{r ch4-sol}
+rm(age, mass)
 ```
 
-Come up with at least 3 different commands that will produce the following output:
+:::::::::::::::::::::::::
 
-```{r, echo=FALSE}
-x[2:4]
-```
-
-After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
-
-:::::::::::: solution
-## Solution to challenge 6
-
-```{r}
-x[2:4]
-```
-```{r}
-x[-c(1,5)]
-```
-```{r}
-x[c(2,3,4)]
-```
-
-
-```{r}
-x[c(FALSE, TRUE, TRUE, TRUE, FALSE)]
-```
-
-(We can use vector recycling to make the previous example slightly shorter:
-```{r}
- x[c(FALSE, TRUE, TRUE, TRUE)]
-```
- The first element of the logical vector will be recycled)
-
-We can construct a logical test to generate the logical vector:
-```{r}
-x[x > 6]
-```
-Unpicking this example, `x > 6` generates the logical vector:
-
-```{r, echo=FALSE}
-x > 6
-```
-
-Which is passed to the `[ ]` subsetting operator.
-:::::::::::::::::::
-:::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ## Further reading

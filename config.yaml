@@ -67,13 +67,14 @@ contact: 'k.r.kopec-harding@bham.ac.uk'
 # Order of episodes in your lesson
 episodes:
 - 01-rstudio-intro.Rmd
-- 02-project-management-with-rstudio.Rmd
-- 03-data-structures-and-subsetting.Rmd
-- 04-exploring-dataframes.Rmd
-- 05-seeking-help.Rmd
-- 06-dplyr.Rmd
-- 07-plot-ggplot2.Rmd
-- 08-wrap.Rmd
+- 02-vectors.Rmd
+- 03-project-management-with-rstudio.Rmd
+- 04-data-structures.Rmd
+- 05-exploring-dataframes.Rmd
+- 06-seeking-help.Rmd
+- 07-dplyr.Rmd
+- 08-plot-ggplot2.Rmd
+- 09-wrap.Rmd
 
 # Information for Learners
 learners:

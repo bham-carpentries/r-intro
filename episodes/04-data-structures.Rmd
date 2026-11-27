@@ -1,6 +1,6 @@
 ---
-title: Data Structures and Subsetting Data
-teaching: 60
+title: Data Structures
+teaching: 30
 exercises: 15
 source: Rmd
 ---
@@ -9,9 +9,7 @@ source: Rmd
 
 - Identify and understand the five main data types in R
 - Explore data frames and understand their relationship with vectors and lists
-- To be able to subset vectors, lists, and data frames
-- To be able to extract individual and multiple elements: by index, by name, using comparison operations
-- To be able to skip and remove elements from various data structures
+- Select subsets of data from a data frame
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -555,55 +553,26 @@ We can access single elements by an additional way!
 another_list$title
 ```
 
-## Names
-
-With names, we can give meaning to elements. It is the first time that we do not
-only have the **data**, but also explaining information. It is *metadata*
-that can be stuck to the object like a label. In R, this is called an
+Names are *metadata* that can be stuck to the object like a label. In R, this is called an
 **attribute**. Some attributes enable us to do more with our
 object, for example, like here, accessing an element by a self-defined name.
 
-### Accessing vectors and lists by name
+::::::::::: callout
+## The `$` operator
 
-We have already seen how to generate a named list. The way to generate a named
-vector is very similar.
-
-```{r}
-pizza_price <- c(pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50)
-```
-
-The way to retrieve elements is different, though:
+The `$` operator is unique to lists and data frames. If we try to extract 
+named elements of a vector this way, we get an error
 
 ```{r}
-pizza_price["pizzasubito"]
-```
-
-The approach used for the list does not work:
-
-```{r}
-pizza_price$pizzafresh
+prices <- c(coffee = 3.50, tea = 2.50, cake = 4.00)
+prices$coffee
 ```
 
 It will pay off if you remember this error message, you will meet it in your own
 analyses. It means that you have just tried accessing an element like it was in
-a list, but it is actually in a vector.
+a list, but it is actually in a vector and you should use `[` instead.
 
-### Accessing and changing names
-
-If you are only interested in the names, use the `names()` function:
-
-```{r}
-names(pizza_price)
-```
-
-We have seen how to access and change single elements of a vector. The same is
-possible for names:
-
-```{r}
-names(pizza_price)[3]
-names(pizza_price)[3] <- "call-a-pizza"
-pizza_price
-```
+::::::::::::::::::
 
 ## Data frames
 
@@ -750,11 +719,10 @@ values in the first row.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+### Accessing and changing names
 
-### Tip: Renaming data frame columns
-
-Data frames have column names, which can be accessed with the `names()` function.
+The names of an object can be extracted with the `names()` function. For 
+data frames, this will return the name of each column
 
 ```{r}
 names(weather)
@@ -767,15 +735,13 @@ names(weather)[2] <- "temperature_celcius"
 weather
 ```
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use `read.csv` to read tabular data in R.
 - Use `save.csv` to save tabular data to a file.
 - The basic data types in R are double, integer, complex, logical, and character.
-- Data structures such as data frames are built on top of lists and vectors, with some added attributes.
+- Data frames are built on top of lists and vectors, with some added attributes.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
