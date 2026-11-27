@@ -36,8 +36,8 @@ between variables.
 
 
 There are three main plotting systems in R,
-the [base plotting system][base], the [lattice]
-package, and the [ggplot2] package.
+the [base plotting system][base], the [lattice][lattice]
+package, and the [ggplot2][ggplot2-website] package.
 
 Today we'll be learning about the ggplot2 package, because
 it is the most effective for creating publication-quality
@@ -140,7 +140,7 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g)) +
 
 Here is one possible solution:
 
-```{r ch1-sol, fig.cap="Scatter plot showing bill length (mm) versus flipper length (mm) for individual penguins, displaying each species as distinct points. All points are coloured on the plot are coloured black."}
+```{r ch1-sol, fig.cap="Scatter plot showing bill length (mm) versus flipper length (mm) for individual penguins, displaying each penguin as distinct points. All points on the plot are coloured black."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) + geom_point()
 ```
 
@@ -182,7 +182,7 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm,
 Using a scatterplot probably isn't the best for visualizing change over time.
 Instead, let's tell `ggplot` to visualize the data as a line plot:
   
-```{r mbm-line}
+```{r mbm-line, fig.alt="Line plot of mean body mass over time, with one line per year."}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass)) +
   geom_line()
 ```
@@ -191,14 +191,14 @@ Instead of adding a `geom_point` layer, we've added a `geom_line` layer.
 
 However, the result doesn't look quite as we might have expected: it seems to be jumping around a lot within each year Let's try to separate the data by island, plotting one line for each island:
 
-```{r mbm-line-by}
+```{r mbm-line-by, fig.alt="Line plot of mean body mass over time, with one line per island."}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island)) +
   geom_line()
 ```
 
 Let's color the lines by island to make things clearer:
   
-```{r mbm-line-by-island}
+```{r mbm-line-by-island, fig.alt="Line plot of mean body mass over time, with one line per island and lines colored by island."}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island, color = island)) +
   geom_line()
 ```
@@ -209,7 +209,7 @@ island.
 But what if we want to visualize both lines and points on the plot? We can
 add another layer to the plot:
 
-```{r mbm-line-point}
+```{r mbm-line-point, fig.alt="Line plot of life expectancy over time, with one line and data points per island, colored by island"}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island, color=island)) +
   geom_line() + 
   geom_point()
@@ -219,7 +219,7 @@ It's important to note that each layer is drawn on top of the previous layer. In
 this example, the points have been drawn *on top of* the lines. Here's a
 demonstration:
 
-```{r mbm-layer-example-1}
+```{r mbm-layer-example-1, fig.alt="Line plot of life expectancy over time, with one line and data points per island; lines are colored by island, all data points are black. The black points are drawn on top of the colored lines, so parts of each line are obscured."}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island)) +
   geom_line(mapping = aes(color=island)) + geom_point()
 ```
@@ -251,7 +251,7 @@ happened?
 
 The lines now get drawn over the points!
   
-```{r ch3-sol, fig.alt="Scatter plot of mran body mass (g) over time, with lines connecting values for each year and species, demonstrating species-specific trends in body mass across years"}
+```{r ch3-sol, fig.alt="Line plot of life expectancy over time, with one line and data points per island; lines are colored by island, all data points are black. The coloured lines are drawn on top of the black data points, so parts of each point are obscured."}
 ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island)) +
   geom_point() +
   geom_line(mapping = aes(color=island)) 
@@ -267,7 +267,7 @@ ggplot(data = penguins_bm, mapping = aes(x=year, y=mean_body_mass, group=island)
 ggplot2 also makes it easy to overlay statistical models over the data. To
 demonstrate we'll go back to our first challenge:
 
-```{r flipper-vs-bill-scatter3, message=FALSE}
+```{r flipper-vs-bill-scatter3, message=FALSE, fig.alt="Scatter plot of flipper length vs bill length, with points showing a moderate positive correlation."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
   geom_point()
 ```
@@ -275,6 +275,11 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)
 We can modify the transparency of the
 points, using the *alpha* function, which is especially helpful when you have
 a large amount of data which is very clustered.
+
+```{r flipper-vs-bill-scatter4, fig.alt="Scatter plot of flipper length vs bill length, with points drawns as gray circles with some transparency, meaning that overlaps appear as black showing where data points are very close (black overlap) or coincide (black data point)."}
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(alpha = 0.5)
+```
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -288,7 +293,7 @@ Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, us
 We can fit a simple relationship to the data by adding another layer,
 `geom_smooth`:
 
-```{r lm-fit, fig.alt="Scatter plot of flipperer length vs bill length with a blue trend line summarising the relationship between variables, and gray shaded area indicating 95% confidence intervals for that trend line."}
+```{r lm-fit, fig.alt="Scatter plot of flipper length vs bill length with a blue trend line summarising the relationship between variables, and gray shaded area indicating 95% confidence intervals for that trend line."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
   geom_point(alpha = 0.5) + 
   geom_smooth(method="lm")
@@ -303,12 +308,12 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)
   geom_smooth(method="lm", linewidth=1.5)
 ```
 
-There are two ways an *aesthetic* can be specified. Here we *set* the **linewidth** aesthetic by passing it as an argument to `geom_smooth` and it is applied the same to the whole `geom`. Previously in the lesson we've used the `aes` function to define a *mapping* between data variables and their visual representation.
+There are two ways an *aesthetic* can be specified. Here we *set* the **linewidth** aesthetic by passing it as an argument to `geom_smooth` and it is applied the same to the whole `geom`. Previously we've used the `aes` function to define a *mapping* between data variables and their visual representation.
 
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 4a
+## Challenge 4.1
 
 Modify the color and size of the points on the point layer in the plot from Challenge 1
 example.
@@ -319,14 +324,14 @@ Hint: the equivalent of `linewidth` for points is `size`.
 
 :::::::::::::::  solution
 
-## Solution to challenge 4a
+## Solution to challenge 4.1
 
 Here a possible solution:
   Notice that the `color` argument is supplied outside of the `aes()` function.
 This means that it applies to all data points on the graph and is not related to
 a specific variable.
 
-```{r ch4a-sol, fig.alt="Scatter plot of average body mass (g) over time, showing enlarged orange data points for each year, connected by lines colored by species."}
+```{r ch4a-sol, fig.alt="Scatter plot of average body mass (g) over time, showing enlarged orange data points for each year."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
   geom_point(size = 2, color = "orange")
 ```
@@ -337,18 +342,18 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 4b
+## Challenge 4.2
 
-Modify your solution to Challenge 4a so that the
+Modify your solution to Challenge 4.1 so that the
 points are now a different shape and are colored by species.  
 
 Hint: 
 (1) The color argument can be used inside the aesthetic.
-(2) See this quick reference to find out more about [available point shapes in R](https://www.sthda.com/english/wiki/ggplot2-point-shapes?title=ggplot2-point-shapes)
+(2) See this quick reference to find out more about [available point shapes in R](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html#shape)
 
 :::::::::::::::  solution
 
-## Solution to challenge 4b
+## Solution to challenge 4.2
 
 Here is a possible solution:
   Notice that supplying the `color` argument inside the `aes()` functions enables you to
@@ -356,7 +361,7 @@ connect it to a certain variable. The `shape` argument, as you can see, modifies
 data points the same way (it is outside the `aes()` call) while the `color` argument which
 is placed inside the `aes()` call modifies a point's color based on its species value.
 
-```{r ch4b-sol, fig.alt="Scatter plot of flipper length (mm) against bill length (mm)."}
+```{r ch4b-sol, fig.alt="Scatter plot of flipper length (mm) against bill length (mm), with points shaped by a fixed symbol and colored by species."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) +
   geom_point(size = 2, shape = 17, aes(color=species)) 
 ```
@@ -371,7 +376,7 @@ Earlier we visualized the relationship between bill length and flipper length ac
 species in one plot. Alternatively, we can split this out over multiple panels
 by adding a layer of **facet** panels.
 
-```{r facet}
+```{r facet, fig.alt="Scatter plots of bill length by flipper length, with a separate panel for each species and points colored by island."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm, color = island)) +
   geom_point() +
   facet_wrap( ~ species) +
@@ -396,10 +401,9 @@ We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot
 title and any legend can be set using the `labs` function. Legend titles
 are set using the same names we used in the `aes` specification. Thus below
-the color legend title is set using `color = "Island"`, while the title
-of a fill legend would be set using `fill = "MyTitle"`.
+the color legend title is set using `color = "Island"`.
 
-```{r theme}
+```{r theme, fig.alt="The previous scatterplot with publication-ready titles."}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm, color = island)) +
   geom_point() +
   facet_wrap( ~ species) +
@@ -439,9 +443,9 @@ ggsave(filename = "results/bill_flipper_plot.png", plot = bill_flipper_plot, wid
 
 There are two nice things about `ggsave`. First, it defaults to the last plot, so if you omit the `plot` argument it will automatically save the last plot you created with `ggplot`. Secondly, it tries to determine the format you want to save your plot in from the file extension you provide for the filename (for example `.png` or `.pdf`). If you need to, you can specify the format explicitly in the `device` argument.
 
-This is a taste of what you can do with ggplot2. RStudio provides a
-really useful [cheat sheet][cheat] of the different layers available, and more
-extensive documentation is available on the [ggplot2 website][ggplot-doc]. All RStudio cheat sheets are available from the [RStudio website][cheat_all].
+This is a taste of what you can do with ggplot2. Posit provide a
+really useful [cheatsheet][ggplot2-cheat] of the different layers available, and more
+extensive documentation is available on the [ggplot2 website][ggplot2-website].
 Finally, if you have no idea how to change something, a quick Google search will
 usually send you to a relevant question and answer on Stack Overflow with reusable
 code to modify!
@@ -482,17 +486,20 @@ ggplot(data = penguins, mapping = aes(x = species, y = flipper_length_mm, fill =
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Further reading
+
 We recommend the following resources for some additional reading on the topic of this episode:
 
 ### ggplot2
-- [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/)
-- [ggplot2](https://www.statmethods.net/advgraphs/ggplot2.html)
-- [cheat](https://www.rstudio.org/links/data_visualization_cheat_sheet)
-- [ggplot-doc](https://ggplot2.tidyverse.org/reference/)
+
+- [ggplot2 website][ggplot2-website]
+- [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/) - online book
+- [ggplot2 cheatsheet][ggplot2-cheat]
 
 ### Other Plotting Systems
-- [base]https://www.statmethods.net/graphs/index.html
-- [lattice]https://www.statmethods.net/advgraphs/trellis.html
+
+- [base][base]
+- [tinyplot](https://grantmcdermott.com/tinyplot/vignettes/introduction.html) - a package that enhances base R plots
+- [lattice][lattice]
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
