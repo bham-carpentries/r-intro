@@ -7,7 +7,16 @@
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/02-data-structures-and-subsetting.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/02-vectors.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/03-exploring-dataframes.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/03-project-management-with-rstudio.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/04-data-structures.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/04-seeking-help.html</loc>
@@ -16,10 +25,25 @@
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/05-dplyr.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/05-exploring-dataframes.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/06-plot-ggplot2.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/06-seeking-help.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/07-dplyr.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/07-wrap.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/08-plot-ggplot2.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/09-wrap.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/404.html</loc>
@@ -34,6 +58,9 @@
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/aio.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/citation.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/images.html</loc>
   </url>
   <url>
@@ -46,7 +73,16 @@
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/02-data-structures-and-subsetting.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/02-vectors.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/03-exploring-dataframes.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/03-project-management-with-rstudio.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/04-data-structures.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/04-seeking-help.html</loc>
@@ -55,10 +91,25 @@
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/05-dplyr.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/05-exploring-dataframes.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/06-plot-ggplot2.html</loc>
   </url>
   <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/06-seeking-help.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/07-dplyr.html</loc>
+  </url>
+  <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/07-wrap.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/08-plot-ggplot2.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/09-wrap.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/404.html</loc>
@@ -71,6 +122,9 @@
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/citation.html</loc>
   </url>
   <url>
     <loc>https://bham-carpentries.github.io/2024-11-26-r-intro/instructor/images.html</loc>

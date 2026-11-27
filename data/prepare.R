@@ -22,9 +22,5 @@ df_penguins <-
 
 write_csv(df_penguins, "episodes/data/penguins_teaching.csv")
 
-
-weather_orig <- data.frame(island = c("torgersen", "biscoe", "dream"), temperature = c(1.6, 1.5, -2.6), snowfall = c(0, 0, 1), stringsAsFactors = FALSE)
-weather_bad <- data.frame(island = c("torgersen", "biscoe", "dream","deception"), temperature = c(1.6, 1.5, -2.6, "-3.4 or 3.5"), snowfall = c(1, 0, 1, 1), stringsAsFactors = FALSE)
-weather <- weather_orig
-write.csv(weather_orig, "episodes/data/weather-data.csv", row.names=FALSE)
-write.csv(weather_bad, "episodes/data/weather-data_v2.csv", row.names =FALSE)
+weather_records <- data.frame(island = c("torgersen", "biscoe", "dream","deception"), temperature = c(1.6, 1.5, -2.6, "-3.4 or -3.5"), snowfall = c(1, 0, 1, 1), stringsAsFactors = FALSE)
+write.csv(weather_records, "episodes/data/weather_records.csv", row.names=FALSE)
