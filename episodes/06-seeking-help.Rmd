@@ -269,10 +269,9 @@ We recommend the following resources for some additional reading on the topic of
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use install.packages() to install packages (libraries) from CRAN
-- Use `help()` to get online help in R
-- Use ls() to list the variables in a program
-- Use rm() to delete objects in a program
+- Use `install.packages()` to install packages from CRAN
+- Use `?` to get help on functions in R
+- Use `browseVignettes()` to browse long-form package documentation 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
