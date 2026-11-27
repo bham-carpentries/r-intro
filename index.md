@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-*an introduction to R for non-programmers using gapminder data*
+*an introduction to R for non-programmers using palmerpenguins data*
 
 The goal of this lesson is to teach novice programmers to write modular code
 and best practices for using R for data analysis. R is commonly used in many

@@ -28,14 +28,14 @@ keywords: 'R, RStudio, Tidyverse, lesson'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha'
+life_cycle: 'beta'
 
 # License of the lesson
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
 source: 'https://github.com/bham-carpentries/2024-11-26-r-intro'
- 
+
 # Default branch of your lesson
 branch: 'main'
 
@@ -67,12 +67,14 @@ contact: 'k.r.kopec-harding@bham.ac.uk'
 # Order of episodes in your lesson
 episodes:
 - 01-rstudio-intro.Rmd
-- 02-data-structures-and-subsetting.Rmd
-- 03-exploring-dataframes.Rmd
-- 04-seeking-help.Rmd
-- 05-dplyr.Rmd
-- 06-plot-ggplot2.Rmd
-- 07-wrap.Rmd
+- 02-vectors.Rmd
+- 03-project-management-with-rstudio.Rmd
+- 04-data-structures.Rmd
+- 05-exploring-dataframes.Rmd
+- 06-seeking-help.Rmd
+- 07-dplyr.Rmd
+- 08-plot-ggplot2.Rmd
+- 09-wrap.Rmd
 
 # Information for Learners
 learners:

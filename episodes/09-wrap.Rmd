@@ -30,30 +30,34 @@ While this course covered the essentials, some key topics were only mentioned in
 - If you plan to analyze survey data, experimental treatments, or any other dataset involving categories, learning how to create and manipulate factors is crucial.
 - See [Chapter 16 Factors](https://r4ds.hadley.nz/factors.html) in R for Data Science (2e) by Hadley Wickham.
 
-## Missing Data
-- If you will be using R for statistical analysis it is essential that you know how R represents missing values see [R for Data Science - missing values](https://r4ds.hadley.nz/missing-values)
+### Missing Data
 
-### Data Structures: Matrices and Arrays
+- If you will be using R for statistical analysis it is essential that you know how to handle missing values in your data.
+- For correcting missing values or making missing data explicit, see [R for Data Science - missing values](https://r4ds.hadley.nz/missing-values)
+- For handling missing data in estimatino, inference or prediction, see [R-miss-tastic](https://rmisstastic.netlify.app)
+
+### Matrices and Arrays
+
 - Matrices and arrays are foundational data structures in R, used to represent multi-dimensional data. 
 - These structures are particularly important if you intend to:
   - Work with numerical computations across multi-dimensional datasets.
   - Develop your own statistical R packages or perform advanced simulations.
 - Understanding these data structures will give you greater flexibility and power in how you handle and process data.
-- See [Chapter 13 - Data Types and Structures](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures.html) in the Software Carpentry Course "Programming with R"
+- See [Working with Matrices in R](https://rafalab.dfci.harvard.edu/dsbook-part-2/highdim/matrices-in-R.html)
 
 ## Next Steps in Self-Learning
 In order to build on what you’ve learned in this course, we also recommend focusing on the following topics next:
 
-2. **Control Flow**
+1. **Control Flow**
    - Mastering control flow (e.g., `if`, `else`, `for`, `while`) is key to automating repetitive tasks and writing efficient scripts.
    - [See Episode 7 - Control Flow in R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/07-control-flow.html)
 
-3. **Functions**
+2. **Functions**
    - Writing your own functions will allow you to reuse code, making your analyses more modular and less prone to error.
    - [See Episode 10 - Functions Explained in R for Reproducible Scientific analysis](https://swcarpentry.github.io/r-novice-gapminder/10-functions.html)
    
    
-1. **Data Frame Manipulation with `tidyr`**
+3. **Data Frame Manipulation with `tidyr`**
    - Learn how to reshape, clean, and organize data efficiently.
    - Tackle more complex data wrangling problems that cannot be solved with dplyr alone.
    - This is especially useful for preprocessing datasets before analysis.
@@ -61,7 +65,8 @@ In order to build on what you’ve learned in this course, we also recommend foc
 
 ## Looking Ahead
 
-The skills you’ve gained here form a strong foundation for using R in scientific research. As you continue to practice and explore R, remember that your growing your coding expertise will help:
+The skills you’ve gained here form a strong foundation for using R in scientific research. As you continue to practice and explore R, remember that growing your coding expertise will help:
+
 - Your **team**, by making your work accessible and reproducible.
 - Your **peers**, by sharing scripts and workflows that others can understand and build upon.
 - The **broader scientific community**, by contributing to open, transparent, and impactful research.

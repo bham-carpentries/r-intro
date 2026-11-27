@@ -22,14 +22,14 @@ source: Rmd
 ```{r, include=FALSE}
 ```
 
-At this point, you've seen it all: in the last lesson, we toured all the basic
+In the last episode, we toured the basic
 data types and data structures in R. Everything you do will be a manipulation of
-those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this lesson, we'll learn a few more things
+those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this episode, we'll learn a few more things
 about working with data frames.
 
 ## Understanding our Data frame
 ```{r, echo=FALSE}
-weather <- read.csv("data/weather-data.csv")
+weather <- read.csv("data/weather.csv")
 ```
 
 Let's ask some questions about this data frame to understand more about its structure:
@@ -99,7 +99,7 @@ Now how about adding rows? We already know that the rows of a
 data frame are lists:
 
 ```{r}
-new_row <- list("deception", -3.45, TRUE, 13)
+new_row <- list("deception", -3.45, 1, 13)
 weather <- rbind(weather, new_row)
 ```
 
@@ -216,8 +216,7 @@ df <- cbind(df, coffeetime = c(TRUE,TRUE))
 
 - Use `cbind()` to add a new column to a data frame.
 - Use `rbind()` to add a new row to a data frame.
-- Use `str()`, `summary()`, nrow()`, `ncol()`, `dim()`, `colnames()`, `head()`, and `typeof()` to understand the structure of a data frame.
-- Read in a csv file using `read.csv()`.
+- Use `str()`, `summary()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `head()`, and `typeof()` to understand the structure of a data frame.
 - Understand what `length()` of a data frame represents.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
