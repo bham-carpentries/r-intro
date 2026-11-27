@@ -135,12 +135,17 @@ To seek help on special operators, use quotes:
 ## Getting help on packages
 
 Many packages come with "vignettes": tutorials and extended example documentation.
-Without any arguments, `vignette()` will list all vignettes for all installed packages;
-`vignette(package="package-name")` will list all available vignettes for
-`package-name`, and `vignette("vignette-name")` will open the specified vignette.
+Without any arguments, `browseVignettes()` will open a page in your web browser with an index of all vignettes for all installed packages - this takes a few seconds to load!
+
+To browse vignettes for a single package, use `browseVignettes(package = "package-name")`. Click on the "HTML" hyperlink next to a vignette title to open the vignette in HTML format.
 
 If a package doesn't have any vignettes, you can usually find help by typing
 `help("package-name")`, or `package?package-name`.
+
+Posit (the company that develop RStudio) and other members of the R community 
+have also provided 
+[cheatsheets](https://opensource.posit.co/resources/cheatsheets/?by=&languages=R) 
+for many R packages and data science tasks.
 
 ## When you kind of remember the function
 
@@ -236,13 +241,7 @@ we cover `dplyr`.
 
 
 ```{r, eval=FALSE}
-vignette(package="dplyr")
-```
-Shows that there are several vignettes included in the package.  The `dplyr`
-vignette looks like it might be useful later.  We can view this with:
-
-```{r, eval=FALSE}
-vignette(package="dplyr", "dplyr")
+browseVignettes(package="dplyr")
 ```
 
 :::::::::::::::::::::::::
@@ -259,13 +258,6 @@ If you use R in your work you should cite it, and the packages you use. The
 In both cases, the default citation includes the version number you are currently using.
 
 :::
-
-## Further reading
-
-We recommend the following resources for some additional reading on the topic of this episode:
-
-- [Cheatsheets](https://opensource.posit.co/resources/cheatsheets/?by=&languages=R)
-- [R for Data Science](https://r4ds.hadley.nz/)
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
