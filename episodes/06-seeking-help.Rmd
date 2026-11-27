@@ -261,10 +261,11 @@ In both cases, the default citation includes the version number you are currentl
 :::
 
 ## Further reading
+
 We recommend the following resources for some additional reading on the topic of this episode:
-- [Quick R](https://www.statmethods.net/)
-- [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
-- [Cookbook for R](https://www.cookbook-r.com/)
+
+- [Cheatsheets](https://opensource.posit.co/resources/cheatsheets/?by=&languages=R)
+- [R for Data Science](https://r4ds.hadley.nz/)
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
