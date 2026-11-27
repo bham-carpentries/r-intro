@@ -624,6 +624,8 @@ This should yield a boolean value of TRUE since `r mass` is greater than `r dept
 
 :::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Challenge 5

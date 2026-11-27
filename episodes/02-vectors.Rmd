@@ -294,12 +294,12 @@ vector are `TRUE`).
 ::::::::::::
 
 :::::::::::: challenge
-## Challenge 5
+## Challenge 1
 
 Return a vector containing the letters of the alphabet in reverse order
 
 :::::::::::::::  solution
-## Solution to challenge 5
+## Solution to challenge 1
 We can extract the elements in reverse order by generating the sequence
 26, 25, ... 1 using the `:` operator:
 
@@ -323,7 +323,7 @@ letters[length(letters):1]
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 6
+## Challenge 2
 
 Given the following code:
 
@@ -341,7 +341,7 @@ x[2:4]
 After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
 
 :::::::::::: solution
-## Solution to challenge 6
+## Solution to challenge 2
 
 ```{r}
 x[2:4]
