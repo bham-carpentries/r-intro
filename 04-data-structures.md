@@ -1,6 +1,6 @@
 ---
-title: Data Structures and Subsetting Data
-teaching: 60
+title: Data Structures
+teaching: 30
 exercises: 15
 source: Rmd
 ---
@@ -9,28 +9,25 @@ source: Rmd
 
 - Identify and understand the five main data types in R
 - Explore data frames and understand their relationship with vectors and lists
-- To be able to subset vectors, lists, and data frames
-- To be able to extract individual and multiple elements: by index, by name, using comparison operations
-- To be able to skip and remove elements from various data structures
+- Select subsets of data from a data frame
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - How can I read data into R?
+- How can I save data created or processed in R?
 - What are the basic data types in R?
 - How can I work with subsets of data in R?
-- How do I represent and work with categorical data in R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-
-
+## Read and write tabular data
 
 One of R's most powerful features is its ability to deal with tabular data -
 such as you may already have in a spreadsheet or a CSV file. Let's start by
-making a toy dataset in your `data/` directory, called `weather-data.csv`:
+making a toy dataset in your `data/` directory, called `weather.csv` 
+with data for the three islands in the Palmer Penguins study:
 
 
 ``` r
@@ -48,10 +45,10 @@ up the help file to check out the argument names and their default values.
 
 
 ``` r
-write.csv(x = weather, file = "data/weather-data.csv", row.names = FALSE)
+write.csv(x = weather, file = "data/weather.csv", row.names = FALSE)
 ```
 
-The contents of the new file, `weather-data.csv`:
+The contents of the new file, `weather.csv`:
 
 
 ``` r
@@ -61,21 +58,11 @@ biscoe,1.5,0
 dream,-2.6,1
 ```
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-### Tip: Editing Text files in R
-
-Alternatively, you can create `data/weather-data.csv` using a text editor (Nano),
-or within RStudio with the **File -> New File -> Text File** menu item.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 We can load this into R via the following:
 
 
 ``` r
-weather <- read.csv(file = "data/weather-data.csv")
+weather <- read.csv(file = "data/weather.csv")
 weather
 ```
 
@@ -89,42 +76,12 @@ weather
 The `read.table` function is used for reading in tabular data stored in a text
 file where the columns of data are separated by punctuation characters such as
 CSV files (csv = comma-separated values). Tabs and commas are the most common
-punctuation characters used to separate or delimit data points in csv files.
+punctuation characters used to separate or delimit data points in text files.
 For convenience R provides 2 other versions of `read.table`. These are: `read.csv`
 for files where the data are separated with commas and `read.delim` for files
 where the data are separated with tabs. Of these three functions `read.csv` is
 the most commonly used.  If needed it is possible to override the default
 delimiting punctuation marks for both `read.csv` and `read.delim`.
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-### Check your data for factors
-
-In recent times, the default way how R handles textual data has changed. Text
-data was interpreted by R automatically into a format called "factors". But
-there is an easier format that is called "character". We will hear about
-factors later, and what to use them for. For now, remember that in most cases,
-they are not needed and only complicate your life, which is why newer R
-versions read in text as "character". Check now if your version of R has
-automatically created factors and convert them to "character" format:
-
-1. Check the data types of your input by typing `str(weather)`
-2. In the output, look at the three-letter codes after the colons: If you see
-  only "num" and "chr", you can continue with the lesson and skip this box.
-  If you find "fct", continue to step 3.
-3. Prevent R from automatically creating "factor" data. That can be done by
-  the following code: `options(stringsAsFactors = FALSE)`. Then, re-read
-  the weather table for the change to take effect.
-4. You must set this option every time you restart R. To not forget this,
-  include it in your analysis script before you read in any data, for example
-  in one of the first lines.
-5. For R versions greater than 4.0.0, text data is no longer converted to
-  factors anymore. So you can install this or a newer version to avoid this
-  problem. If you are working on an institute or company computer, ask your
-  administrator to do it.
-  
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We can begin exploring our dataset right away, pulling out columns by specifying
 them using the `$` operator:
@@ -146,8 +103,8 @@ weather$island
 [1] "torgersen" "biscoe"    "dream"    
 ```
 
-We can also use the subsetting operator []  on our data frame. While a vector is one dimensionl, a data
-frame is two dimensional, so we pass two arguments to the [] operator.
+We can also use the subsetting operator `[]`  on our data frame. While a vector is one dimensional, a data
+frame is two dimensional, so we pass two arguments to the `[]` operator.
 
 The first argument indicates the row(s) we require and the second indicates the columns. 
 So to return rows 1 and 2, and columns 2 and 3 we can use:
@@ -192,12 +149,13 @@ weather$temperature + weather$island
 ```
 
 ``` error
-Error in weather$temperature + weather$island: non-numeric argument to binary operator
+Error in `weather$temperature + weather$island`:
+! non-numeric argument to binary operator
 ```
 
 Understanding what happened here is key to successfully analyzing data in R.
 
-### Data Types
+## Data Types
 
 If you guessed that the last command will return an error because `1.6` plus
 `"torgersen"` is nonsense, you're right - and you already have some intuition for an
@@ -213,6 +171,8 @@ typeof(weather$temperature)
 [1] "double"
 ```
 
+A double is a data type that can represent decimal numbers.
+
 There are 5 main types: `double`, `integer`, `complex`, `logical` and `character`.
 For historic reasons, `double` is also called `numeric`.
 
@@ -224,9 +184,19 @@ typeof(3.14)
 ``` output
 [1] "double"
 ```
+A whole number will still be stored as a double by default. 
+Adding an `L` suffix forces the number to be stored as a "long integer".
 
 ``` r
-typeof(1L) # The L suffix forces the number to be an integer, since by default R uses float numbers
+typeof(1)
+```
+
+``` output
+[1] "double"
+```
+
+``` r
+typeof(1L)
 ```
 
 ``` output
@@ -261,57 +231,58 @@ No matter how
 complicated our analyses become, all data in R is interpreted as one of these
 basic data types. This strictness has some really important consequences.
 
-A colleagues has added weather observations for another island. This information is in the file
-`data/weather-data_v2.csv`.
+Instead of creating the weather data ourselves, we might obtain the data from an external source. 
+The `weather-records.csv` file contains weather data recorded by a research assistant for the three islands in our study, as well as Deception island - another island in the Palmer Archipelago.
+
+Load the weather records as before
 
 
 ``` r
-file.show("data/weather-data_v2.csv")
+weather_records <- read.csv(file="data/weather_records.csv")
+weather_records
 ```
 
-
-``` r
-island,temperature,snowfall
-torgersen,"1.6",0
-biscoe,"1.5",0
-dream,"-2.6",1
-deception,"-3.4 or 3.5",1
+``` output
+     island  temperature snowfall
+1 torgersen          1.6        1
+2    biscoe          1.5        0
+3     dream         -2.6        1
+4 deception -3.4 or -3.5        1
 ```
 
-Load the new weather data like before, and check what type of data we find in the
-`temperature` column:
+Let’s check what type of data we find in the `temperature` column of our new `weather_records` object:
 
 
 ``` r
-weather <- read.csv(file="data/weather-data_v2.csv")
-typeof(weather$temperature)
+typeof(weather_records$temperature)
 ```
 
 ``` output
 [1] "character"
 ```
 
-Oh no, our temperatures aren't the double type anymore! If we try to do the same math
-we did on them before, we run into trouble:
+Oh no, our temperatures aren't the double type as we expected! If we try to do the same math
+we did on them as before, we run into trouble:
 
 
 ``` r
-weather$temperature + 273.15
+weather_records$temperature + 273.15
 ```
 
 ``` error
-Error in weather$temperature + 273.15: non-numeric argument to binary operator
+Error in `weather_records$temperature + 273.15`:
+! non-numeric argument to binary operator
 ```
 
 What happened?
-The `weather` data we are working with is something called a *data frame*. Data frames
+When R reads a CSV file, it reads it in as a *data frame*. Data frames
 are one of the most common and versatile types of *data structures* we will work with in R.
 A given column in a data frame cannot be composed of different data types.
-In this case, R does not read everything in the data frame column `temperature` as a *double*, therefore the entire
-column data type changes to something that is suitable for everything in the column.
+In this case, R could not store everything in the data frame column `temperature` as a *double*, therefore the entire
+column data type changed to something that is suitable for everything in the column.
 
-When R reads a csv file, it reads it in as a *data frame*. Thus, when we loaded the `weather`
-csv file, it is stored as a data frame. We can recognize data frames by the first row that
+The `weather` data we created is also a data frame.
+We can recognize data frames by the first row that
 is written by the `str()` function:
 
 
@@ -320,10 +291,10 @@ str(weather)
 ```
 
 ``` output
-'data.frame':	4 obs. of  3 variables:
- $ island     : chr  "torgersen" "biscoe" "dream" "deception"
- $ temperature: chr  "1.6" "1.5" "-2.6" "-3.4 or 3.5"
- $ snowfall   : int  1 0 1 1
+'data.frame':	3 obs. of  3 variables:
+ $ island     : chr  "torgersen" "biscoe" "dream"
+ $ temperature: num  1.6 1.5 -2.6
+ $ snowfall   : int  0 0 1
 ```
 
 *Data frames* are composed of rows and columns, where each column has the
@@ -332,28 +303,10 @@ data types (this is what makes them so versatile), but everything in a given
 column needs to be the same type (e.g., vector, factor, or list).
 
 Let's explore more about different data structures and how they behave.
-For now, let's remove that extra line from our weather data and reload it,
-while we investigate this behavior further:
+For now, we will focus on our original data frame `weather` 
+(and we'll return to `weather_records` in the first challenge).
 
-weather-data.csv:
-
-```
-island,temperature,snowfall
-torgersen,"1.6",0
-biscoe,"1.5",0
-dream,"-2.6",1
-```
-
-And back in RStudio:
-
-
-``` r
-weather <- read.csv(file="data/weather-data.csv")
-```
-
-
-
-### Vectors and Type Coercion
+## Vectors and Type Coercion
 
 To better understand this behavior, let's meet another of the data structures:
 the *vector*.
@@ -368,7 +321,7 @@ my_vector
 [1] FALSE FALSE FALSE
 ```
 
-A vector in R is essentially an ordered list of things, with the special
+A vector in R is essentially a list of things, with the special
 condition that *everything in the vector must be the same basic data type*. If
 you don't choose the datatype, it'll default to `logical`; or, you can declare
 an empty vector of whatever type you like.
@@ -410,13 +363,13 @@ str(weather$temperature)
 ```
 
 we see that `weather$temperature` is a vector, too - *the columns of data we load into R
-data.frames are all vectors*, and that's the root of why R forces everything in
+data frames are all vectors*, and that's the root of why R forces everything in
 a column to be the same basic data type.
 
 
-#### Coercion by combining vectors
+### Coercion by combining vectors
 
-As we saw in lesson 1, you can also make vectors with explicit contents with the combine function:
+As we saw in episode 2, you can also make vectors with explicit contents with the combine function:
 
 
 ``` r
@@ -433,11 +386,6 @@ Given what we've learned so far, what do you think the following will produce?
 
 ``` r
 quiz_vector <- c(2,6,'3')
-quiz_vector
-```
-
-``` output
-[1] "2" "6" "3"
 ```
 
 This is something called *type coercion*, and it is the source of many surprises
@@ -465,7 +413,7 @@ another_coercion_vector
 [1] 0 1
 ```
 
-#### The type hierarchy
+### The type hierarchy
 
 The coercion rules go: `logical` -> `integer` -> `double` ("`numeric`") ->
 `complex` -> `character`, where -> can be read as *are transformed into*. For
@@ -519,7 +467,7 @@ As you can see, some surprising things can happen when R forces one basic data
 type into another! Nitty-gritty of type coercion aside, the point is: if your
 data doesn't look like what you thought it was going to look like, type coercion
 may well be to blame; make sure everything is the same type in your vectors and
-your columns of data.frames, or you will get nasty surprises!
+your columns of data frames, or you will get nasty surprises!
 
 But coercion can also be very useful! For example, in our `weather` data
 `snowfall` is numeric, but we know that the 1s and 0s actually represent
@@ -583,8 +531,201 @@ typeof(sequence_example)
 [1] "integer"
 ```
 
+:::::::::::::::::::::::::::::::::::::::  challenge
 
-### Lists
+### Challenge 1
+
+An important part of every data analysis is cleaning the input data. If you
+know that the input data is all of the same format, (e.g. numbers), your
+analysis is much easier! In this challenge you will write ana analysis script 
+to clean the recorded weather data.
+
+#### Copy the code template
+
+Create a new script in RStudio, copy-paste the following code into the 
+script and save as `scripts/cleaning-weather.R`. Then
+move on to the tasks below, which help you to fill in the gaps (\_\_\_\_\_\_).
+
+```
+# Read the weather records
+weather_records <- read.csv("data/weather_records.csv")
+
+# 1. Print the data
+_____
+
+# 2. Show an overview of the table with all data types
+_____(weather_records)
+
+# 3. The "temperature" column has the incorrect data type __________.
+#    The correct data type is: ____________.
+
+# 4. Correct the 4th temperature data point with the mean of the two given values
+weather_records$temperature[4] <- -3.45
+#    print the data again to see the effect
+weather_records
+
+# 5. Convert the temperature to the right data type
+weather_records$temperature <- ______________(weather$temperature)
+
+#    Calculate the mean to test yourself
+mean(weather_records$temperature)
+
+# If you see the correct mean value (and not NA), you did the exercise
+# correctly!
+
+# Save the cleaned data
+save.csv(weather_records, "results/weather_cleaned.csv")
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 1.1\. Print the data
+
+Execute the first statement (`read.csv(...)`). Then print the data to the
+console
+
+:::::::::::::::  solution
+
+### Tip 1.1
+
+Show the content of any variable by typing its name.
+
+:::::::::::::::::::::::::
+
+:::::::::::::::  solution
+### Solution to Challenge 1.1
+
+Two correct solutions:
+
+```
+weather_records
+print(weather_records)
+```
+
+:::::::::::::::::::::::::
+
+## 1.2\. View the data types
+
+The data type of your data is as important as the data itself. Use a
+function we saw earlier to print out the data types of all columns of the
+`weather` table.
+
+:::::::::::::::  solution
+
+### Tip 1.2
+
+In the episode "Data types" we saw two functions that can show data types.
+One printed just a single word, the data type name. The other printed
+a short form of the data type, and the first few values. We need the second
+here.
+
+
+:::::::::::::::::::::::::
+
+:::::::::::::::  solution
+### Solution to Challenge 1.2
+
+```
+ str(weather_records)
+```
+
+:::::::::::::::::::::::::
+
+## 1.3\. Which data type do we need?
+
+The shown data type is not the right one for this data (temperature of each island). Which data type do we need?
+
+- Why did the `read.csv()` function not choose the correct data type?
+- Fill in the gap in the comment with the correct data type for temperature!
+
+:::::::::::::::  solution
+
+### Tip 1.3
+
+Scroll up to the section about the [type hierarchy](#the-type-hierarchy)
+to review the available data types
+
+
+:::::::::::::::::::::::::
+
+:::::::::::::::  solution
+
+### Solution to Challenge 1.3
+
+- temperature is expressed on a continuous scale (real numbers). The R
+data type for this is "double" (also known as "numeric").
+- The fourth row has the value "-3.4 or -3.5". That is not a number
+but two numbers, and an english word. Therefore, the "character" data type
+is chosen. The whole column is now text, because all values in the same
+columns have to be the same data type.
+
+
+:::::::::::::::::::::::::
+
+## 1.4\. Correct the problematic value
+
+The code to assign a new temperature value to the problematic fourth row is given.
+Think first and then execute it: What will be the data type after assigning
+a number like in this example?
+You can check the data type after executing to see if you were right.
+
+:::::::::::::::  solution
+
+### Tip 1.4
+
+Revisit the hierarchy of data types when two different data types are
+combined.
+
+
+:::::::::::::::::::::::::
+
+:::::::::::::::  solution
+
+### Solution to challenge 1.4
+
+The data type of the column "temperature" is "character". The assigned data
+type is "double". Combining two data types yields the data type that is
+higher in the following hierarchy:
+
+```
+ logical < integer < double < complex < character
+```
+
+Therefore, the column is still of type character! We need to manually
+convert it to "double".
+:::::::::::::::  
+
+## 1.5\. Convert the column "temperature" to the correct data type
+
+Temperature readings are numbers. But the column does not have this data type yet.
+Coerce the column to floating point numbers.
+
+:::::::::::::::  solution
+
+### Tip 1.5
+
+The functions to convert data types start with `as.`. You can look
+for the function further up in the manuscript or use the RStudio
+auto-complete function: Type "`as.`" and then press the TAB key.
+
+:::::::::::::::::::::::::
+
+:::::::::::::::  solution
+### Solution to Challenge 1.5
+
+There are two functions that are synonymous for historic reasons:
+
+```
+weather_records$temperature <- as.double(weather_records$temperature)
+weather_records$temperature <- as.numeric(weather_records$temperature)
+```
+::::::::::::::: 
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## Lists
 
 Another data structure you'll want in your bag of tricks is the `list`. A list
 is simpler in some ways than the other types, because you can put anything you
@@ -631,7 +772,7 @@ What is the use of lists? They can **organize data of different types**. For
 example, you can organize different tables that belong together, similar to
 spreadsheets in Excel. But there are many other uses, too.
 
-We will see another example that will maybe surprise you in the next chapter.
+We will see another example that will maybe surprise you in the next episode.
 
 To retrieve one of the elements of a list, use the **double bracket**:
 
@@ -649,7 +790,7 @@ them to the values, separated by an equals sign:
 
 
 ``` r
-another_list <- list(title = "Numbers", numbers = 1:10, data = TRUE )
+another_list <- list(title = "Numbers", numbers = 1:10, data = TRUE)
 another_list
 ```
 
@@ -676,95 +817,36 @@ another_list$title
 [1] "Numbers"
 ```
 
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Names
-
-With names, we can give meaning to elements. It is the first time that we do not
-only have the **data**, but also explaining information. It is *metadata*
-that can be stuck to the object like a label. In R, this is called an
+Names are *metadata* that can be stuck to the object like a label. In R, this is called an
 **attribute**. Some attributes enable us to do more with our
 object, for example, like here, accessing an element by a self-defined name.
 
-### Accessing vectors and lists by name
+::::::::::: callout
+## The `$` operator
 
-We have already seen how to generate a named list. The way to generate a named
-vector is very similar. You have seen this function before:
-
-
-``` r
-pizza_price <- c( pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50 )
-```
-
-The way to retrieve elements is different, though:
+The `$` operator is unique to lists and data frames. If we try to extract 
+named elements of a vector this way, we get an error
 
 
 ``` r
-pizza_price["pizzasubito"]
-```
-
-``` output
-pizzasubito 
-       5.64 
-```
-
-The approach used for the list does not work:
-
-
-``` r
-pizza_price$pizzafresh
+prices <- c(coffee = 3.50, tea = 2.50, cake = 4.00)
+prices$coffee
 ```
 
 ``` error
-Error in pizza_price$pizzafresh: $ operator is invalid for atomic vectors
+Error in `prices$coffee`:
+! $ operator is invalid for atomic vectors
 ```
 
 It will pay off if you remember this error message, you will meet it in your own
 analyses. It means that you have just tried accessing an element like it was in
-a list, but it is actually in a vector.
+a list, but it is actually in a vector and you should use `[` instead.
 
-### Accessing and changing names
-
-If you are only interested in the names, use the `names()` function:
-
-
-``` r
-names(pizza_price)
-```
-
-``` output
-[1] "pizzasubito" "pizzafresh"  "callapizza" 
-```
-
-We have seen how to access and change single elements of a vector. The same is
-possible for names:
-
-
-``` r
-names(pizza_price)[3]
-```
-
-``` output
-[1] "callapizza"
-```
-
-``` r
-names(pizza_price)[3] <- "call-a-pizza"
-pizza_price
-```
-
-``` output
- pizzasubito   pizzafresh call-a-pizza 
-        5.64         6.60         4.50 
-```
-
-
-:::::::::::::::::::::::::::::::::::::
+::::::::::::::::::
 
 ## Data frames
 
-We have data frames at the very beginning of this lesson, they represent
+We have data frames at the very beginning of this episode, they represent
 a table of data. We didn't go much further into detail with our example weather
 data frame:
 
@@ -780,7 +862,7 @@ weather
 3     dream        -2.6     TRUE
 ```
 
-We can now understand something a bit surprising in our data.frame; what happens
+We can now understand something a bit surprising in our data frame; what happens
 if we run:
 
 
@@ -792,7 +874,7 @@ typeof(weather)
 [1] "list"
 ```
 
-We see that data.frames look like lists 'under the hood'. Think again what we
+We see that data frames look like lists 'under the hood'. Think again what we
 heard about what lists can be used for:
 
 > Lists organize data of different types
@@ -800,7 +882,7 @@ heard about what lists can be used for:
 Columns of a data frame are vectors of different types, that are organized
 by belonging to the same table.
 
-A data.frame is really a list of vectors. It is a special list in which all the
+A data frame is really a list of vectors. It is a special list in which all the
 vectors must have the same length.
 
 How is this "special"-ness written into the object, so that R does not treat it
@@ -826,7 +908,7 @@ five data types), whereas the output of `class()` is *diverse* and *extendable*
 by R packages.
 
 In our `weather` example, we have an integer, a double and a logical variable. As
-we have seen already, each column of data.frame is a vector.
+we have seen already, each column of data frame is a vector.
 
 
 ``` r
@@ -861,7 +943,7 @@ str(weather[,1])
  chr [1:3] "torgersen" "biscoe" "dream"
 ```
 
-Each row is an *observation* of different variables, itself a data.frame, and
+Each row is an *observation* of different variables, itself a data frame, and
 thus can be composed of elements of different types.
 
 
@@ -893,200 +975,12 @@ str(weather[1,])
  $ snowfall   : logi FALSE
 ```
 
-
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ### Challenge 1
 
-An important part of every data analysis is cleaning the input data. If you
-know that the input data is all of the same format, (e.g. numbers), your
-analysis is much easier! Clean the weather data set from the chapter about
-type coercion.
-
-#### Copy the code template
-
-Create a new script in RStudio and copy and paste the following code. Then
-move on to the tasks below, which help you to fill in the gaps (\_\_\_\_\_\_).
-
-```
-# Read data
-weather <- read.csv("data/weather-data_v2.csv")
-
-# 1. Print the data
-_____
-
-# 2. Show an overview of the table with all data types
-_____(weather)
-
-# 3. The "temperature" column has the incorrect data type __________.
-#    The correct data type is: ____________.
-
-# 4. Correct the 4th temperature data point with the mean of the two given values
-weather$temperature[4] <- -3.45
-#    print the data again to see the effect
-weather
-
-# 5. Convert the temperature to the right data type
-weather$temperature <- ______________(weather$temperature)
-
-#    Calculate the mean to test yourself
-mean(weather$temperature)
-
-# If you see the correct mean value (and not NA), you did the exercise
-# correctly!
-```
-
-### Instructions for the tasks
-
-#### 1\. Print the data
-
-Execute the first statement (`read.csv(...)`). Then print the data to the
-console
-
-:::::::::::::::  solution
-
-### Tip 1.1
-
-Show the content of any variable by typing its name.
-
-:::::::::::::::::::::::::
-
-:::::::::::::::  solution
-### Solution to Challenge 1.1
-
-Two correct solutions:
-
-```
-weather
-print(weather)
-```
-
-:::::::::::::::::::::::::
-
-#### 2\. Overview of the data types
-
-The data type of your data is as important as the data itself. Use a
-function we saw earlier to print out the data types of all columns of the
-`weather` table.
-
-:::::::::::::::  solution
-
-### Tip 1.2
-
-In the chapter "Data types" we saw two functions that can show data types.
-One printed just a single word, the data type name. The other printed
-a short form of the data type, and the first few values. We need the second
-here.
-
-
-:::::::::::::::::::::::::
-
-:::::::::::::::  solution
-### Solution to Challenge 1.2
-
-```
- str(weather)
-```
-
-:::::::::::::::::::::::::
-
-#### 3\. Which data type do we need?
-
-The shown data type is not the right one for this data (temperature at a location). Which data type do we need?
-
-- Why did the `read.csv()` function not choose the correct data type?
-- Fill in the gap in the comment with the correct data type for temperature!
-
-:::::::::::::::  solution
-
-### Tip 1.3
-
-Scroll up to the section about the [type hierarchy](#the-type-hierarchy)
-to review the available data types
-
-
-:::::::::::::::::::::::::
-
-:::::::::::::::  solution
-
-### Solution to Challenge 1.3
-
-- temperature is expressed on a continuous scale (real numbers). The R
-data type for this is "double" (also known as "numeric").
-- The fourth row has the value "-3.4 or -3.5". That is not a number
-but two numbers, and an english word. Therefore, the "character" data type
-is chosen. The whole column is now text, because all values in the same
-columns have to be the same data type.
-
-
-:::::::::::::::::::::::::
-
-#### 4\. Correct the problematic value
-
-The code to assign a new temperature value to the problematic fourth row is given.
-Think first and then execute it: What will be the data type after assigning
-a number like in this example?
-You can check the data type after executing to see if you were right.
-
-:::::::::::::::  solution
-
-### Tip 1.4
-
-Revisit the hierarchy of data types when two different data types are
-combined.
-
-
-:::::::::::::::::::::::::
-
-:::::::::::::::  solution
-
-### Solution to challenge 1.4
-
-The data type of the column "temperature" is "character". The assigned data
-type is "double". Combining two data types yields the data type that is
-higher in the following hierarchy:
-
-```
- logical < integer < double < complex < character
-```
-
-Therefore, the column is still of type character! We need to manually
-convert it to "double".
-:::::::::::::::  
-
-#### 5\. Convert the column "temperature" to the correct data type
-
-Temperature readings are numbers. But the column does not have this data type yet.
-Coerce the column to floating point numbers.
-
-:::::::::::::::  solution
-
-### Tip 1.5
-
-The functions to convert data types start with `as.`. You can look
-for the function further up in the manuscript or use the RStudio
-auto-complete function: Type "`as.`" and then press the TAB key.
-
-:::::::::::::::::::::::::
-
-:::::::::::::::  solution
-### Solution to Challenge 1.5
-
-There are two functions that are synonymous for historic reasons:
-
-```
-weather$temperature <- as.double(weather$temperature)
-weather$temperature <- as.numeric(weather$temperature)
-```
-::::::::::::::: 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-### Challenge 2
-
 There are several subtly different ways to call variables, observations and
-elements from data.frames:
+elements from data frames:
 
 - `weather[1]`
 - `weather[[1]]`
@@ -1102,7 +996,7 @@ Try out these examples and explain what is returned by each one.
 
 :::::::::::::::  solution
 
-### Solution to Challenge 2
+### Solution to Challenge 1
 
 
 ``` r
@@ -1204,11 +1098,10 @@ values in the first row.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+### Accessing and changing names
 
-### Tip: Renaming data frame columns
-
-Data frames have column names, which can be accessed with the `names()` function.
+The names of an object can be extracted with the `names()` function. For 
+data frames, this will return the name of each column
 
 
 ``` r
@@ -1234,19 +1127,13 @@ weather
 3     dream                -2.6     TRUE
 ```
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Use `read.csv` to read tabular data in R.
+- Use `save.csv` to save tabular data to a file.
 - The basic data types in R are double, integer, complex, logical, and character.
-- Data structures such as data frames are built on top of lists and vectors, with some added attributes.
-- Indexing in R starts at 1, not 0.
-- Access individual values by location using `[]`.
-- Access slices of data using `[low:high]`.
-- Access arbitrary sets of data using `[c(...)]`.
-- Use logical operations and logical vectors to access subsets of data.
+- Data frames are built on top of lists and vectors, with some added attributes.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 

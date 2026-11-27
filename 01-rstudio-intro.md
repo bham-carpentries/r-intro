@@ -1,27 +1,25 @@
 ---
 title: Introduction to R and RStudio
-teaching: 60
+teaching: 35
 exercises: 15
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Describe the purpose and functionality of each pane in RStudio
-- Locate key buttons and options within the RStudio interface
-- Create and manage self-contained projects in RStudio
-- Define and work with variables
-- Assign data to a variable
+- Describe the purpose and use of each pane in RStudio
+- Locate buttons and options in RStudio
 - Use mathematical and comparison operators
-- Call and work with functions
+- Assign data to a variable
+- Manage a workspace in an interactive R session
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How can I find my way around RStudio?
-- How can I manage my projects in RStudio?
-- How to interact with R for data analysis and coding?
+- How to find your way around RStudio?
+- How to interact with R?
+- How to manage your environment?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -50,17 +48,6 @@ Please ensure you have the latest version of R and RStudio installed on your mac
 - [Download and install the latest version of R here](https://www.r-project.org/)
 - [Download and install RStudio here](https://www.rstudio.com/products/rstudio/download/#download)
 
-
-## Data Set
-
-We will begin with raw data, perform exploratory analyses, and learn how to plot results graphically. We'll use a version of the Palmer Penguins dataset dataset from the [Palmer Penguins package](https://allisonhorst.github.io/palmerpenguins/) that we have adapted for the purposes of this course. The Palmer Penguins dataset provides morphological measurements (bill length, bill depth, flipper length, body mass) for three penguin species (Adélie, Chinstrap, and Gentoo) collected from three islands (Torgersen, Dream, and Biscoe) in the Palmer Archipelago, Antarctica.
-
-![Meet the penguins cartoon illustration of the penguin species Chinstrap! Adelie! and Gentoo! by @Allison Horst (CC-BY-4.0)](fig/penguins_ccby4_by_at_allison_horst.png){alt='Meet the penguins cartoon illustration of the penguin species Chinstrap! Adelie! and Gentoo! by @Allison Horst (CC-BY-4.0)'}
-
-Can you read the data into R? Can you plot relationship between bill length and flipper length? Can you calculate the mean body mass of penguins on the island of Dream?
-By the end of these lessons you will be able to explore key relationships in the
-data in minutes!
-
 ## Introduction to RStudio
 
 Throughout this lesson, we're going to teach you some of the fundamentals of the R language as well as some best practices for organizing code for scientific projects that will make your life easier.
@@ -80,122 +67,15 @@ in the top left.
 
 ![](fig/01-rstudio-script.png){alt='RStudio layout with .R file open'}
 
-## Projects in R Studio
-
-The scientific process is naturally incremental, and many projects
-start life as random notes, some code, then a manuscript, and
-eventually everything is a bit mixed together.
-
-<blockquote class="twitter-tweet"><p>Managing your projects in a reproducible fashion doesn't just make your science reproducible, it makes your life easier.</p>— Vince Buffalo (@vsbuffalo) <a href="https://twitter.com/vsbuffalo/status/323638476153167872">April 15, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-Most people tend to organize their projects like this:
-
-![](fig/bad_layout.png){alt='Screenshot of file manager demonstrating bad project organisation'}
-
-There are many reasons why we should *ALWAYS* avoid this:
-
-1. It is really hard to tell which version of your data is
-  the original and which is the modified;
-2. It gets really messy because it mixes files with various
-  extensions together;
-3. It probably takes you a lot of time to actually find
-  things, and relate the correct figures to the exact code
-  that has been used to generate it;
-
-A good project layout will ultimately make your life easier:
-
-- It will help ensure the integrity of your data;
-- It makes it simpler to share your code with someone else
-  (a lab-mate, collaborator, or supervisor);
-- It allows you to easily upload your code with your manuscript submission;
-- It makes it easier to pick the project back up after a break.
-
-### Creating a self-contained project
-
-Fortunately, there are tools and packages which can help you manage your work effectively.
-
-One of the most powerful and useful aspects of RStudio is its project management
-functionality. We'll be using this today to create a self-contained, reproducible
-project.
-
-We're going to create a new project in RStudio:
-
-1. Click the "File" menu button, then "New Project".
-2. Click "New Directory".
-3. Click "New Project".
-4. Type in the name of the directory to store your project, e.g. "my\_project".
-5. If available, select the checkbox for "Create a git repository."
-6. Click the "Create Project" button.
-
-### Best practices for project organization
-
-Although there is no "best" way to lay out a project, there are some general
-principles to adhere to that will make project management easier:
-
-#### Treat data as read only
-
-This is probably the most important goal of setting up a project. Data is
-typically time consuming and/or expensive to collect. Working with them
-interactively (e.g., in Excel) where they can be modified means you are never
-sure of where the data came from, or how it has been modified since collection.
-It is therefore a good idea to treat your data as "read-only".
-
-#### Data Cleaning
-
-In many cases your data will be "dirty": it will need significant preprocessing
-to get into a format R (or any other programming language) will find useful.
-This task is sometimes called "data munging". Storing these scripts in a
-separate folder, and creating a second "read-only" data folder to hold the
-"cleaned" data sets can prevent confusion between the two sets.
-
-#### Treat generated output as disposable
-
-Anything generated by your scripts should be treated as disposable: it should
-all be able to be regenerated from your scripts.
-
-There are lots of different ways to manage this output. Having an output folder
-with different sub-directories for each separate analysis makes it easier later.
-Since many analyses are exploratory and don't end up being used in the final
-project, and some of the analyses get shared between projects.
-
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Tip: Good Enough Practices for Scientific Computing
+## R scripts
 
-[Good Enough Practices for Scientific Computing](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/good-enough-practices-for-scientific-computing.pdf) gives the following recommendations for project organization:
+Any commands that you write in the R console can be saved to a file
+to be re-run again.  Files containing R code to be run in this way are
+called R scripts.  R scripts have `.R` at the end of their names to
+let you know what they are.
 
-1. Put each project in its own directory, which is named after the project.
-2. Put text documents associated with the project in the `doc` directory.
-3. Put raw data and metadata in the `data` directory, and files generated during cleanup and analysis in a `results` directory.
-4. Put source for the project's scripts and programs in the `src` directory, and programs brought in from elsewhere or compiled locally in the `bin` directory.
-5. Name all files to reflect their content or function.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-#### Use Project Subfolders
-Create `data`, `src`, and `results` directories in your project directory.
-
-Copy the files penguins_teaching.csv, weather-data.csv, and weather-data_v2.csv files from the zip file you downloaded as part of the lesson set up to the data/ folder within your project. We will load and use these files later in the course.
-
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: Working directory
-
-Knowing R's current working directory is important because when you need to access other files (for example, to import a data file), R will look for them relative to the current working directory.
-
-Each time you create a new RStudio Project, it will create a new directory for that project. When you open an existing `.Rproj` file, it will open that project and set R's working directory to the folder that file is in.
-
-You can check the current working directory with the `getwd()` command, or by using the menus in RStudio.
-
-1. In the console, type `getwd()` ("wd" is short for "working directory") and hit Enter.
-2. In the Files pane, double click on the `data` folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click "More" and then select "Go To Working Directory".
-
-You can change the working directory with `setwd()`, or by using RStudio menus.
-
-1. In the console, type `setwd("data")` and hit Enter. Type `getwd()` and hit Enter to see the new working directory.
-2. In the menus at the top of the RStudio window, click the "Session" menu button, and then select "Set Working Directory" and then "Choose Directory". Next, in the windows navigator that opens, navigate back to the project directory, and click "Open". Note that a `setwd` command will automatically appear in the console.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -214,8 +94,8 @@ interactive R console.
   - You will be able to run the file you create from within RStudio
 or using R's `source()`  function.
 
-In this lesson we'll spend a lot of time working in the interactive console.
-We'll move on to creating scripts in the next lesson. 
+In this episode we'll spend a lot of time working in the interactive console.
+We'll move on to creating scripts in the next episode. 
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -239,18 +119,6 @@ including the modifications you have made.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## R scripts
-
-Any commands that you write in the R console can be saved to a file
-to be re-run again.  Files containing R code to be run in this way are
-called R scripts.  R scripts have `.R` at the end of their names to
-let you know what they are.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 ## Introduction to R
 
 Much of your time in R will be spent in the R interactive
@@ -435,7 +303,7 @@ exp(0.5) # e^(1/2)
 ```
 
 Don't worry about trying to remember every function in R. You
-can look them up on Google, or if you can remember the
+can look them up in a web search, or if you can remember the
 start of the function's name, use the tab completion in RStudio.
 
 This is one advantage that RStudio has over R on its own, it
@@ -530,6 +398,22 @@ Further reading: [http://floating-point-gui.de/](https://floating-point-gui.de/)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 1
+
+From the menu, choose File > New file > R Script to open an R Script.
+
+Go to the History tab in the top right pane, select some of the commands 
+that you have run interactively and click the "To Source" button to add them to 
+your script. You can select multiple lines by left-clicking on one line and 
+holding the shift key while you left-click a later line.
+
+Practice the different ways to run segments of the code described in the 
+[Workflow within RStudio](#workflow-within-rstudio) section
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ## Variables and assignment
 
 We can store values in variables using the assignment operator `<-`, like this:
@@ -609,396 +493,149 @@ But this is much less common among R users.  The most important thing is to
 where it is less confusing to use `<-` than `=`, and it is the most common
 symbol used in the community. So the recommendation is to use `<-`.
 
-## Vectorization
+## Managing your environment
 
-One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. A vector is 1 dimensional array of ordered values all of the same data type. For example:
+There are a few useful commands you can use to interact with the R session.
+
+`ls` will list all of the variables and functions stored in the global environment
+(your working R session):
 
 
 ``` r
-1:5
+ls()
+```
+
+
+``` output
+[1] "x" "y"
+```
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Tip: hidden objects
+
+Like in the shell, `ls` will hide any variables or functions starting
+with a "." by default. To list all objects, type `ls(all.names=TRUE)`
+instead
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Note here that we didn't give any arguments to `ls`, but we still
+needed to give the parentheses to tell R to call the function.
+
+If we type `ls` by itself, R prints a bunch of code instead of a listing of objects.
+
+
+``` r
+ls
 ```
 
 ``` output
-[1] 1 2 3 4 5
+function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
+    pattern, sorted = TRUE) 
+{
+    if (!missing(name)) {
+        pos <- tryCatch(name, error = function(e) e)
+        if (inherits(pos, "error")) {
+            name <- substitute(name)
+            if (!is.character(name)) 
+                name <- deparse(name)
+            warning(gettextf("%s converted to character string", 
+                sQuote(name)), domain = NA)
+            pos <- name
+        }
+    }
+    all.names <- .Internal(ls(envir, all.names, sorted))
+    if (!missing(pattern)) {
+        if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
+            ll != length(grep("]", pattern, fixed = TRUE))) {
+            if (pattern == "[") {
+                pattern <- "\\["
+                warning("replaced regular expression pattern '[' by  '\\\\['")
+            }
+            else if (length(grep("[^\\\\]\\[<-", pattern))) {
+                pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
+                warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
+            }
+        }
+        grep(pattern, all.names, value = TRUE)
+    }
+    else all.names
+}
+<bytecode: 0x602733dce700>
+<environment: namespace:base>
 ```
 
-We can assign a vector to a variable:
+What's going on here?
+
+Like everything in R, `ls` is the name of an object, and entering the name of
+an object by itself prints the contents of the object. The object `x` that we
+created earlier contains 0.025:
 
 
 ``` r
-x <- 5:10
-```
-
-We can apply functions to all the elements of a vector:
-
-
-``` r
-(1:5) * 2
+x
 ```
 
 ``` output
-[1]  2  4  6  8 10
+[1] 0.025
 ```
 
-``` r
-2^(1:5)
-```
+The object `ls` contains the R code that makes the `ls` function work! We'll talk
+more about how functions work and start writing our own later.
 
-``` output
-[1]  2  4  8 16 32
-```
-
-We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
+You can use `rm` to delete objects you no longer need:
 
 
 ``` r
-c(2, 4, -1)
+rm(x)
 ```
 
-``` output
-[1]  2  4 -1
-```
-
-``` r
-c(x, 2, 2, 3)
-```
-
-``` output
-[1]  5  6  7  8  9 10  2  2  3
-```
-
-Vectors aren't limited to storing numbers:
+If you have lots of things in your environment and want to delete all of them,
+you can pass the results of `ls` to the `rm` function:
 
 
 ``` r
-c("a", "b", "c", "def")
+rm(list = ls())
 ```
 
-``` output
-[1] "a"   "b"   "c"   "def"
-```
+In this case we've combined the two. Like the order of operations, anything
+inside the innermost parentheses is evaluated first, and so on.
 
-R comes with a few built in constants, containing useful values:
+In this case we've specified that the results of `ls` should be used for the
+`list` argument in `rm`. When assigning values to arguments by name, you *must*
+use the `=` operator!!
 
-``` r
-LETTERS
-letters
-month.abb
-month.name
-```
-
-We will use some of these in the examples that follow.
-
-### Vector lengths
-
-We can calculate how many elements a vector contains using the `length()` function:
+If instead we use `<-`, there will be unintended side effects, or you may get an error message:
 
 
 ``` r
-length(x)
+rm(list <- ls())
 ```
-
-``` output
-[1] 6
-```
-
-``` r
-length(letters)
-```
-
-``` output
-[1] 26
-```
-
-
-### Subsetting vectors
-
-Having defined a vector, it's often useful to _extract_ parts of a vector.   We do this with the
-`[]` operator.  Using the built in `month.name` vector:
-
-
-``` r
-month.name[2]
-```
-
-``` output
-[1] "February"
-```
-
-``` r
-month.name[2:4]
-```
-
-``` output
-[1] "February" "March"    "April"   
-```
-
-Let's unpick the second example; `2:4` generates the sequence 2,3,4.   This gets passed to the 
-extract operator `[]`.   We can also generate this sequence using the `c()` function:
-
-
-``` r
-month.name[c(2,3,4)]
-```
-
-``` output
-[1] "February" "March"    "April"   
-```
-
-:::::::::::::: callout
-## Vector numbering in R starts at 1
-
-In many programming languages (C and python, for example), the first
-element of a vector has an index of 0. In R, the first element is 1.
-::::::::::::::
-
-Values are returned in the order that we specify the indices.  We can extract the same element more 
-than once:
-
-
-``` r
-month.name[4:2]
-```
-
-``` output
-[1] "April"    "March"    "February"
-```
-
-``` r
-month.name[c(1,1,2,3,4)]
-```
-
-``` output
-[1] "January"  "January"  "February" "March"    "April"   
-```
-
-If we try and extract an element that doesn't exist in the vector, the missing values are `NA`:
-
-
-``` r
-month.name[10:13]
-```
-
-``` output
-[1] "October"  "November" "December" NA        
-```
-
-:::::::::::::::::::: callout
-## Missing data
-
-`NA` is a special value, that is used to represent "not available", or "missing".  If we perform computations which include `NA`, the result is usually `NA`:
-
-
-``` r
-1 + NA
-```
-
-``` output
-[1] NA
-```
-
-This raises an interesting point; how do we test if a value is `NA`?  This doesn't work:
-
-
-``` r
-x <- NA
-x == NA
-```
-
-``` output
-[1] NA
-```
-
-## Handling special values
-
-There are a number of special functions you can use to handle missing data, and other special values:
-
- * `is.na` will return all positions in a vector, matrix, or data.frame
-   containing `NA`.
- * likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
- * `is.finite` will return all positions in a vector, matrix, or data.frame
-   that do not contain `NA`, `NaN` or `Inf`.
- * `na.omit` will filter out all missing values from a vector
-
-::::::::::::::::::::
-
-### Skipping and removing elements
-
-If we use a negative number as the index of a vector, R will return
-every element *except* for the one specified:
-
-
-``` r
-month.name[-2]
-```
-
-``` output
- [1] "January"   "March"     "April"     "May"       "June"      "July"     
- [7] "August"    "September" "October"   "November"  "December" 
-```
-
-We can skip multiple elements:
-
-
-``` r
-month.name[c(-1, -5)]  # or month.name[-c(1,5)]
-```
-
-``` output
- [1] "February"  "March"     "April"     "June"      "July"      "August"   
- [7] "September" "October"   "November"  "December" 
-```
-
-:::::::::::::::::::: callout
-## Tip: Order of operations
-
-A common error occurs when trying to skip
-slices of a vector. Most people first try to negate a
-sequence like so:
-
-
-``` r
-month.name[-1:3]
-```
-
-This gives a somewhat cryptic error:
-
 
 ``` error
-Error in month.name[-1:3]: only 0's may be mixed with negative subscripts
+Error in `rm()`:
+! ... must contain names or character strings
 ```
 
-But remember the order of operations. `:` is really a function, so
-what happens is it takes its first argument as -1, and second as 3,
-so generates the sequence of numbers: `-1, 0, 1, 2, 3`.
+:::::::::::::::::::::::::::::::::::::::::  callout
 
-The correct solution is to wrap that function call in brackets, so
-that the `-` operator is applied to the sequence:
+## Tip: Warnings vs. Errors
 
+Pay attention when R does something unexpected! Errors, like above,
+are thrown when R cannot proceed with a calculation. Warnings on the
+other hand usually mean that the function has run, but it probably
+hasn't worked as expected.
 
-``` r
--(1:3)
-```
+In both cases, the message that R prints out usually give you clues
+how to fix a problem.
 
-``` output
-[1] -1 -2 -3
-```
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-``` r
-month.name[-(1:3)]
-```
-
-``` output
-[1] "April"     "May"       "June"      "July"      "August"    "September"
-[7] "October"   "November"  "December" 
-```
-::::::::::::::::::::
-
-### Subsetting with logical vectors 
-
-As well as providing a list of indices we want to keep (or delete, if we prefix them with `-`), we 
-can pass a _logical vector_ to R indicating the indices we wish to select:
-
-
-``` r
-fourmonths <- month.name[1:4]
-fourmonths
-```
-
-``` output
-[1] "January"  "February" "March"    "April"   
-```
-
-``` r
-fourmonths[c(TRUE, FALSE, TRUE, TRUE)]
-```
-
-``` output
-[1] "January" "March"   "April"  
-```
-
-What happens if we supply a logical vector that is shorter than the vector we're extracting the elements from?
-
-
-``` r
-fourmonths[c(TRUE,FALSE)]
-```
-
-``` output
-[1] "January" "March"  
-```
-
-This illustrates the idea of _vector recycling_; the `[]` extract operator "recycles" the subsetting vector:
-
-
-``` r
-fourmonths[c(TRUE,FALSE,TRUE,FALSE)]
-```
-
-``` output
-[1] "January" "March"  
-```
-
-This can be useful, but can easily catch you out.
-
-The idea of selecting elements of a vector using a logical subsetting vector may seem a bit esoteric, and a lot more
-typing than just selecting the elements you want by index.  It becomes really useful when we write code to generate
-the logical vector:
-
-
-``` r
-my_vector <- c(0.01, 0.69, 0.51, 0.39)
-my_vector > 0.5
-```
-
-``` output
-[1] FALSE  TRUE  TRUE FALSE
-```
-
-``` r
-my_vector[my_vector > 0.5]
-```
-
-``` output
-[1] 0.69 0.51
-```
-
-:::::::::::: callout
-## Tip: Combining logical conditions
-
-There are many situations in which you will wish to combine multiple logical
-criteria. For example, we might want to find all the elements that are 
-between two values. Several operations for combining logical vectors exist in R:
-
-+ `&`, the "logical AND" operator: returns `TRUE` if both the left and right
-  are `TRUE`.
-+ `|`, the "logical OR" operator: returns `TRUE`, if either the left or right
-  (or both) are `TRUE`.
-
-The recycling rule applies with both of these, so `TRUE & c(TRUE, FALSE, TRUE)`
-will compare the first `TRUE` on the left of the `&` sign with each of the
-three conditions on the right.
-
-You may sometimes see `&&` and `||` instead of `&` and `|`. These operators
-do not use the recycling rule: they only look at the first element of each
-vector and ignore the remaining elements. The longer operators are mainly used
-in programming, rather than data analysis.
-
-+ `!`, the "logical NOT" operator: converts `TRUE` to `FALSE` and `FALSE` to
-  `TRUE`. It can negate a single logical condition (e.g. `!TRUE` becomes
-  `FALSE`), or a whole vector of conditions(e.g. `!c(TRUE, FALSE)` becomes
-  `c(FALSE, TRUE)`).
-
-Additionally, you can compare the elements within a single vector using the
-`all` function (which returns `TRUE` if every element of the vector is `TRUE`)
-and the `any` function (which returns `TRUE` if one or more elements of the
-vector are `TRUE`).
-::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 1
+## Challenge 2
 
 Which of the following are valid R variable names?
 
@@ -1016,7 +653,7 @@ celsius2kelvin
 
 :::::::::::::::  solution
 
-## Solution to challenge 1
+## Solution to challenge 2
 
 The following can be used as R variables:
 
@@ -1051,7 +688,7 @@ min-length
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 2
+## Challenge 3
 
 What will be the value of each variable  after each
 statement in the following program?
@@ -1066,7 +703,7 @@ depth <- depth - 20
 
 :::::::::::::::  solution
 
-## Solution to challenge 2
+## Solution to challenge 3
 
 
 ``` r
@@ -1105,14 +742,14 @@ of 102 to the variable depth.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 3
+## Challenge 4
 
 Run the code from the previous challenge, and write a command to
 compare mass to depth. Is mass larger than depth?
 
 :::::::::::::::  solution
 
-## Solution to challenge 3
+## Solution to challenge 4
 
 One way of answering this question in R is to use the `>` to set up the following:
 
@@ -1131,139 +768,31 @@ This should yield a boolean value of TRUE since 109.25 is greater than 102.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::: challenge
-## Challenge 4
-
-Return a vector containing the letters of the alphabet in reverse order
-
-:::::::::::::::  solution
-## Solution to challenge 4
-We can extract the elements in reverse order by generating the sequence
-26, 25, ... 1 using the `:` operator:
-
-
-``` r
-letters[26:1]
-```
-
-``` output
- [1] "z" "y" "x" "w" "v" "u" "t" "s" "r" "q" "p" "o" "n" "m" "l" "k" "j" "i" "h"
-[20] "g" "f" "e" "d" "c" "b" "a"
-```
-
-Although this works, it makes the assumption that `letters` will always be length 26.
-Although this is probably a safe assumption in English, other
-languages may have more (or fewer) letters in their alphabet.   It is good
-practice to avoid assuming _anything_ about your data.
-
-We can avoid assuming `letters` is length 26, by using the `length()` function:
-
-
-``` r
-letters[length(letters):1]
-```
-
-``` output
- [1] "z" "y" "x" "w" "v" "u" "t" "s" "r" "q" "p" "o" "n" "m" "l" "k" "j" "i" "h"
-[20] "g" "f" "e" "d" "c" "b" "a"
-```
-:::::::::::::::
-:::::::::::::::::::::::::::::
-
-
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Challenge 5
 
-Given the following code:
+Clean up your working environment by deleting the mass and age
+variables.
 
+:::::::::::::::  solution
 
-``` r
-x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
-x
-```
-
-``` output
-[1] 5.4 6.2 7.1 7.5 4.8
-```
-
-Come up with at least 3 different commands that will produce the following output:
-
-
-``` output
-[1] 6.2 7.1 7.5
-```
-
-After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
-
-:::::::::::: solution
 ## Solution to challenge 5
 
-
-``` r
-x[2:4]
-```
-
-``` output
-[1] 6.2 7.1 7.5
-```
-
-``` r
-x[-c(1,5)]
-```
-
-``` output
-[1] 6.2 7.1 7.5
-```
-
-``` r
-x[c(2,3,4)]
-```
-
-``` output
-[1] 6.2 7.1 7.5
-```
-
+We can use the `rm` command to accomplish this task
 
 
 ``` r
-x[c(FALSE, TRUE, TRUE, TRUE, FALSE)]
+rm(age, mass)
 ```
 
-``` output
-[1] 6.2 7.1 7.5
+``` warning
+Warning in rm(age, mass): object 'age' not found
 ```
 
-(We can use vector recycling to make the previous example slightly shorter:
+:::::::::::::::::::::::::
 
-``` r
- x[c(FALSE, TRUE, TRUE, TRUE)]
-```
-
-``` output
-[1] 6.2 7.1 7.5
-```
- The first element of the logical vector will be recycled)
-
-We can construct a logical test to generate the logical vector:
-
-``` r
-x[x > 6]
-```
-
-``` output
-[1] 6.2 7.1 7.5
-```
-Unpicking this example, `x > 6` generates the logical vector:
-
-
-``` output
-[1] FALSE  TRUE  TRUE  TRUE FALSE
-```
-
-Which is passed to the `[ ]` subsetting operator.
-:::::::::::::::::::
-:::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ## Further reading
@@ -1279,9 +808,8 @@ We recommend the following resources for some additional reading on the topic of
 - Use RStudio to write and run R programs.
 - R has the usual arithmetic operators and mathematical functions.
 - Use `<-` to assign values to variables.
-- Use RStudio to create and manage projects with a consistent structure.
-- Treat raw data as read-only.
-- Treat generated output as disposable.
+- Use ls() to list the variables in a workspace
+- Use rm() to delete objects in a workspace
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

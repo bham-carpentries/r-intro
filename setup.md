@@ -3,10 +3,13 @@ title: Setup
 ---
 
 ## Data Setup 
-We will be using some example data in the lesson. 
-Download the file using the link below and extract it to your computer:
- - [zip file of raw data](../episodes/data/rcourse-data.zip).
 
+We will be using some example data in the lesson. 
+
+ - [`penguins_teaching.csv`](data/penguins_teaching.csv)
+ - [`weather_records.csv`](data/weather_records.csv)
+
+Download these files to your laptop and save them somewhere you will be able to find them again!
 
 ## Software Setup
 
@@ -26,9 +29,9 @@ To install R and RStudio on a personal laptop
 
 #### Windows/Mac
 
-- R can be downloaded [here](https://www.stats.bris.ac.uk/R/). Select the precompiled binary distribution for your operating system.
+- R can be downloaded from the [CRAN](https://cloud.r-project.org/) repository. Select the precompiled binary distribution for your operating system.
 
-- RStudio is an environment for code development using R. It can be downloaded [here](https://www.rstudio.com/products/rstudio/download/). You will need the Desktop version for your computer; scroll to the bottom of the page for links.
+- RStudio is an environment for code development using R. The [RStudio docs](https://docs.posit.co/ide/user/download.html) provide a link to download RStudio Desktop.
 
 ::::::::::::::::::::::::
 
@@ -39,11 +42,9 @@ To install R and RStudio on a personal laptop
 #### Windows
 To install R and RStudio on a University managed Windows machine:
 
-- Connect your computer to the university network and open the Software Centre from the Start Menu
+- Navigate to AppsAnywhere: https://apps.bham.ac.uk/ 
 
-- Search for and install "RStudio". 
-
-- This will also automatically install R for Windows 4.3.1 and Rtools.
+- Search for and install "RStudio", selecting the app with the latest date if there is a choice (e.g. RStudio 2026.11.0 was the version released in November 2026). 
 
 #### Mac
 
@@ -51,15 +52,13 @@ To install R and RStudio on a University managed Mac machine:
 
 - Connect your computer to the university network and open the Software Centre from the Start Menu
 
-- Search for and install "R Language". 
-
-- Search for and install "RStudio". 
+- Search for and install "RStudio with R". 
 
 ::::::::::::::::::::::::
  
 ## Packages
 
-The course teaches the tidyverse, which is a collection of R packages that are designed to make many common data analysis tasks easier. Please install this before the course. You can do this by starting Rstudio, and typing:
+The course teaches the tidyverse, which is a collection of R packages that are designed to make many common data analysis tasks easier. Please install this before the course. You can do this by starting RStudio, and typing:
 
 ```r
 install.packages("tidyverse")
@@ -67,7 +66,7 @@ install.packages("tidyverse")
 
 At the > prompt in the left hand window of RStudio. You may be prompted to select a mirror to use; either select one in the UK, or the “cloud” option at the start of the list.
 
-R will download the packages that constitute the tidyverse, and then install them. This can take some time. You may get a prompt There are binary versions available but the source versions are later and asking if you want to install from sources packages which require compilation. You should answer no to this.
+R will download the packages that constitute the tidyverse, and then install them. This can take some time. You may get a message "There are binary versions available but the source versions are later", asking if you want to install from source packages which require compilation. You should answer no to this.
 
 If you are using a mac you may be prompted whether you wish to install binary or source versions of the packages; you should select binary.
 

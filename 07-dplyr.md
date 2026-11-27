@@ -30,18 +30,6 @@ data by a certain variable(s), or we even calculate summary statistics. We can
 do these operations using the normal base R operations:
 
 
-``` output
-── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
 
 
 ``` r
@@ -159,8 +147,7 @@ Tibbles can for the most part, be treated like a `data.frame`.
 
 ::::::::::: callout 
 R's standard data structure for tabular data is the `data.frame`.  In
-contrast, `read_csv()` creates a `tibble` (also referred to, for historic
-reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+contrast, `read_csv()` creates a `tibble`.  This extends the functionality of  a `data.frame`,
 and can, for the most part, be treated like a `data.frame`.
  
 You may find that some older functions don't work on tibbles.   A tibble
@@ -168,7 +155,7 @@ can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
 a data frame to a tibble, use `as.tibble(mydataframe)`.
  
 Tibbles behave more consistently than data frames when subsetting with `[]`; 
-this will always return another tibble.  This isn't the case when working with  data.frames.  You can find out more about the differences  between data.frames and 
+this will always return another tibble.  This isn't the case when working with data frames.  You can find out more about the differences between data frames and 
 tibbles by typing `vignette("tibble")`.
  
 :::::::::::
@@ -295,10 +282,10 @@ island of "Dream", we can combine `select` and `filter`
 
 
 ``` r
-dream_year_island_bmg <- penguins |>
+year_bmg_dream <- penguins |>
     filter(island == "Dream") |>
     select(year, body_mass_g)
-head(dream_year_island_bmg)
+head(year_bmg_dream)
 ```
 
 ``` output
@@ -322,11 +309,11 @@ for a specific year (e.g., 2007), we can do as below.
 
 
 ``` r
-dream_island_2007 <- penguins |>
+species_bmg_dream_2007 <- penguins |>
   filter(island == "Dream", year == "2007") |> 
   select(species, body_mass_g)
 
-head(dream_island_2007)
+head(species_bmg_dream_2007)
 ```
 
 ``` output
@@ -348,6 +335,70 @@ function, then we pass the filtered version of the penguins data frame to the
 `select()` function. **Note:** The order of operations is very important in this
 case. If we used 'select' first, filter would not be able to find the variable
 `island` since we would have removed it in the previous step.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 1
+
+Write a single command (which can span multiple lines and include pipes)
+that will produce a data frame with the penguins found on Torgersen island,
+including the columns species, body_mass_g, and year, but not for other islands.
+How many rows does your data frame have, and why?
+
+You should start from the `penguins` tibble.
+
+:::::::::::::::  solution
+
+## Solution to Challenge 1
+
+
+``` r
+penguins_torgersen <- penguins |>
+  filter(island == "Torgersen") |>
+  select(species, body_mass_g, year)
+
+str(penguins_torgersen)
+```
+
+``` output
+tibble [52 × 3] (S3: tbl_df/tbl/data.frame)
+ $ species    : chr [1:52] "Adelie" "Adelie" "Adelie" "Adelie" ...
+ $ body_mass_g: num [1:52] 3750 3800 3250 4202 3450 ...
+ $ year       : chr [1:52] "2007" "2007" "2007" "2007" ...
+```
+
+Using `str(penguins_torgersen)` tells us that our output is "tibble [52 x 3]",
+i.e., a tibble with 52 rows and 3 columns.
+
+Alternative solutions to find the shape of the tibble:
+
+
+``` r
+dim(penguins_torgersen)
+```
+
+``` output
+[1] 52  3
+```
+
+``` r
+nrow(penguins_torgersen)
+```
+
+``` output
+[1] 52
+```
+
+``` r
+ncol(penguins_torgersen)
+```
+
+``` output
+[1] 3
+```
+::::::::::::::: 
+
+:::::::::::::::::::::::::::::::::::::::  
 
 ## Using group\_by()
 
@@ -384,7 +435,7 @@ spc_tbl_ [344 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
   ..   sex = col_character(),
   ..   year = col_character()
   .. )
- - attr(*, "problems")=<externalptr> 
+ - attr(*, "problems")=<pointer: 0x5fd62768c5f0> 
 ```
 
 ``` r
@@ -412,7 +463,7 @@ gropd_df [344 × 8] (S3: grouped_df/tbl_df/tbl/data.frame)
   ..   sex = col_character(),
   ..   year = col_character()
   .. )
- - attr(*, "problems")=<externalptr> 
+ - attr(*, "problems")=<pointer: 0x5fd62768c5f0> 
  - attr(*, "groups")= tibble [3 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ island: chr [1:3] "Biscoe" "Dream" "Torgersen"
   ..$ .rows : list<int> [1:3] 
@@ -426,40 +477,10 @@ gropd_df [344 × 8] (S3: grouped_df/tbl_df/tbl/data.frame)
 You will notice that the structure of the data frame where we used `group_by()`
 (`grouped_df`) is not the same as the original `penguins` (`data.frame`). A
 `grouped_df` can be thought of as a `list` where each item in the `list`is a
-`data.frame` which contains only the rows that correspond to the a particular
-value `island` (at least in the example above).
+`data.frame` which contains only the rows that correspond to a particular value 
+of a grouping variable (`island` in the example above).
 
 ![](fig/13-dplyr-fig2-updated.png){alt='Diagram illustrating how the group by function oraganizes a data frame into groups'}
-
-:::::::::::: callout
-You may have noticed this output when using the group_by() function:
-
-```
-`summarise()` has grouped output by 'year'. You can override using the
-`.groups` argument.
-``` 
-
-```
-`summarise()` has grouped output by 'year'. 
-``` 
-
-- This indicates that the dataset we are working with was grouped by a variable 
-(in this case, year) using a function like group_by(year) before applying summarise(). 
-
-- The result of summarise() will maintain the grouping structure unless explicitly changed.
-```
-You can override using the `.groups` argument.
-``` 
-
-The .groups argument in summarise() lets you control how grouping is handled in the output. 
-By default, summarise() keeps one level of grouping intact (i.e., the result remains grouped by any other grouping variables, if present). You can override this behaviour by specifying .groups explicitly. 
-
-The possible values for .groups are:
-- "drop_last" (default): Drops the last grouping variable (e.g., if grouped by year and month, it drops month but keeps year).
-- "drop": Removes all grouping
-- "keep": Keeps all grouping variables intact.
-::::::::::::
-
 
 ## Using summarize()
 
@@ -505,8 +526,12 @@ bm_byyear_byspecies <- penguins |>
 ```
 
 ``` output
-`summarise()` has grouped output by 'year'. You can override using the
-`.groups` argument.
+`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by year and species.
+ℹ Output is grouped by year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(year, species))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
 ```
 
 ``` r
@@ -526,6 +551,22 @@ head(bm_byyear_byspecies)
 6 2008  Gentoo               5020.
 ```
 
+:::::::::::: callout
+When using the `group_by()` function with multiple grouping variables, you 
+see information messages starting with 
+
+```
+`summarise()` has regrouped the output.
+``` 
+
+with further detail. By default, `summarise()` returns a `grouped_df`, with 
+the last grouping level removed because we have summarised the data at this 
+level to one row per value.
+
+This detail is unimportant unless we want to further operate on the 
+tibble returned by `summarise()`.
+::::::::::::
+
 That is already quite powerful, but it gets even better! You're not limited to defining 1 new variable in `summarize()`.
 
 
@@ -539,8 +580,12 @@ bm_byyear_byspecies <- penguins |>
 ```
 
 ``` output
-`summarise()` has grouped output by 'year'. You can override using the
-`.groups` argument.
+`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by year and species.
+ℹ Output is grouped by year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(year, species))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
 ```
 
 ``` r
@@ -559,6 +604,54 @@ head(bm_byyear_byspecies)
 5 2008  Chinstrap            3800            519.
 6 2008  Gentoo               5020.           515.
 ```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 2
+
+Calculate the average flipper length per species.
+Which species has the longest average flipper length, and which has the shortest?
+
+You should start from the `penguins` tibble.
+
+Hint: use `filter()` with `max()` and `min()` to answer the second question.
+
+:::::::::::::::  solution
+
+## Solution to Challenge 2
+
+
+``` r
+flipper_length_by_species <- penguins |>
+  group_by(species) |>
+  summarize(mean_flipper_length = mean(flipper_length_mm))
+
+flipper_length_by_species |>
+  filter(mean_flipper_length == max(mean_flipper_length))
+```
+
+``` output
+# A tibble: 1 × 2
+  species mean_flipper_length
+  <chr>                 <dbl>
+1 Gentoo                 217.
+```
+
+``` r
+flipper_length_by_species |>
+  filter(mean_flipper_length == min(mean_flipper_length))
+```
+
+``` output
+# A tibble: 1 × 2
+  species mean_flipper_length
+  <chr>                 <dbl>
+1 Adelie                 190.
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::: 
 
 ## count() and n()
 
@@ -644,8 +737,12 @@ bm_byyear_byisland_byspecies <- penguins |>
 ```
 
 ``` output
-`summarise()` has grouped output by 'year', 'island'. You can override using
-the `.groups` argument.
+`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by year, island, and species.
+ℹ Output is grouped by year and island.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(year, island, species))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.
 ```
 
 ``` r
@@ -667,10 +764,10 @@ head(bm_byyear_byisland_byspecies)
 
 ![An illustration of the mutate function [Artwork by @allison_horst](https://twitter.com/allison_horst)](fig/mutate_ccby4_artwork_by_at_allison_horst.png){alt='Cartoon of cute fuzzy monsters dressed up as different X-men characters, working together to add a new column to an existing data frame. Stylized title text reads "dplyr::mutate - add columns, keep existing."'}
 
-## Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: if_else
 
 When creating new variables, we can hook this with a logical condition. A simple combination of
-`mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
+`mutate()` and `if_else()` facilitates filtering right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the data frame will not change) or for updating values depending on this given condition.
 
@@ -680,7 +777,7 @@ of the data frame will not change) or for updating values depending on this give
 # calculate bill length / depth ratio for only for Adelie penguins
 bill_morph_adelie <- penguins |>
     mutate(
-      bill_ratio = ifelse(
+      bill_ratio = if_else(
         species == "Adelie", 
         bill_length_mm/bill_depth_mm, 
         NA
@@ -702,160 +799,22 @@ head(bill_morph_adelie)
 # ℹ 3 more variables: sex <chr>, year <chr>, bill_ratio <dbl>
 ```
 
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 1
-
-Write a single command (which can span multiple lines and includes pipes)
-that will produce a data frame with the penguins found on Torgersen island,
-including the columns species, body_mass_g, and year, but not for other islands.
-How many rows does your data frame have, and why?
-
-You should start from the `penguins` tibble.
-
-:::::::::::::::  solution
-
-## Solution to Challenge 1
-
-
 ``` r
-penguins_torgersen <- penguins |>
-  filter(island == "Torgersen") |>
-  select(species, body_mass_g, year)
-
-head(penguins_torgersen)
+tail(bill_morph_adelie)
 ```
 
 ``` output
-# A tibble: 6 × 3
-  species body_mass_g year 
-  <chr>         <dbl> <chr>
-1 Adelie        3750  2007 
-2 Adelie        3800  2007 
-3 Adelie        3250  2007 
-4 Adelie        4202. 2007 
-5 Adelie        3450  2007 
-6 Adelie        3650  2007 
+# A tibble: 6 × 9
+  species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  <chr>     <chr>           <dbl>         <dbl>             <dbl>       <dbl>
+1 Chinstrap Dream            45.7          17                 195        3650
+2 Chinstrap Dream            55.8          19.8               207        4000
+3 Chinstrap Dream            43.5          18.1               202        3400
+4 Chinstrap Dream            49.6          18.2               193        3775
+5 Chinstrap Dream            50.8          19                 210        4100
+6 Chinstrap Dream            50.2          18.7               198        3775
+# ℹ 3 more variables: sex <chr>, year <chr>, bill_ratio <dbl>
 ```
-
-Using `head(penguins_torgersen)` tells us that our output is "A tibble 52 x 3"
-i.e. a tibble with 52 rows and 3 columns.
-
-Alternative solutions to find the shape of the tibble:
-
-
-``` r
-dim(penguins_torgersen)
-```
-
-``` output
-[1] 52  3
-```
-
-``` r
-nrow(penguins_torgersen)
-```
-
-``` output
-[1] 52
-```
-
-``` r
-ncol(penguins_torgersen)
-```
-
-``` output
-[1] 3
-```
-::::::::::::::: 
-
-:::::::::::::::::::::::::::::::::::::::  
-
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 2
-
-Calculate the average flipper length per species.
-Which species has the longest average flipper length, and which has the shortest?
-
-You should start from the `penguins` tibble.
-
-:::::::::::::::  solution
-
-## Solution to Challenge 2
-
-
-``` r
-body_mass_by_species <- penguins |>
-  group_by(species) |>
-  summarize(mean_body_mass = mean(body_mass_g))
-
-body_mass_by_species |>
-  filter(mean_body_mass == min(mean_body_mass) | mean_body_mass == max(mean_body_mass))
-```
-
-``` output
-# A tibble: 2 × 2
-  species mean_body_mass
-  <chr>            <dbl>
-1 Adelie           3704.
-2 Gentoo           5069.
-```
-
-Another way to do this is to use the `dplyr` function `arrange()`, which
-arranges the rows in a data frame according to the order of one or more
-variables from the data frame.  It has similar syntax to other functions from
-the `dplyr` package. You can use `desc()` inside `arrange()` to sort in
-descending order.
-
-
-``` r
-body_mass_by_species |>
-  arrange(mean_body_mass) |>
-  head(1)
-```
-
-``` output
-# A tibble: 1 × 2
-  species mean_body_mass
-  <chr>            <dbl>
-1 Adelie           3704.
-```
-
-``` r
-body_mass_by_species |>
-  arrange(desc(mean_body_mass)) |>
-  head(1)
-```
-
-``` output
-# A tibble: 1 × 2
-  species mean_body_mass
-  <chr>            <dbl>
-1 Gentoo           5069.
-```
-
-Alphabetical order works too
-
-
-``` r
-body_mass_by_species |>
-  arrange(desc(species)) |>
-  head(1)
-```
-
-``` output
-# A tibble: 1 × 2
-  species mean_body_mass
-  <chr>            <dbl>
-1 Gentoo           5069.
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::: 
-
   
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -886,9 +845,9 @@ body_mass_10penguins_byspecies
 # A tibble: 3 × 2
   species   mean_body_mass
   <chr>              <dbl>
-1 Gentoo             5405 
-2 Chinstrap          3648.
-3 Adelie             3500.
+1 Gentoo             4990 
+2 Chinstrap          3605 
+3 Adelie             3643.
 ```
 
 :::::::::::::::::::::::::
@@ -897,15 +856,14 @@ body_mass_10penguins_byspecies
 
 
 ## Further reading
+
 We recommend the following resources for some additional reading on the topic of this episode:
 
 - [R for Data Science](https://r4ds.hadley.nz/) (online book)
 
-- [Data Wrangling Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) (pdf file)
+- [Cheatsheet: Data transformation with dplyr](https://opensource.posit.co/resources/cheatsheets/data-transformation/data-transformation.pdf) (pdf file)
 
 - [Introduction to dplyr](https://dplyr.tidyverse.org/) (online documentation)
-
-- [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) (online video)
 
 - [Tidyverse Skills for Data Science](https://jhudatascience.org/tidyversecourse/) (online book)
 

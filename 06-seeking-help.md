@@ -25,7 +25,7 @@ source: Rmd
 
 ## R packages
 
-R packages extend the functionality of R.  Over 13,000 packages have been written
+R packages extend the functionality of R.  There are thousands of packages written
 by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
 
 We can see the packages installed on an R installation via the "packages" tab in RStudio, or by typing `installed.packages()` at the prompt, or by selecting the "Packages" tab in RStudio.
@@ -38,15 +38,15 @@ There are several sources of packages in R; the ones you are most likely to enco
 
 ### CRAN
 
-[CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 12,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.
+[CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 20,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.
 
 ### Bioconductor
 
 [Bioconductor](https://www.bioconductor.org/) is a more specialised repository, which contains packages for bioinformatics.  Common workflows are provided, and the packages are more thoroughly quality assured.   Because of its more specialised nature we don't focus on Bioconductor in this course.
 
-### Github / personal websites
+### GitHub / personal websites
 
-Some authors distribute packages via [Github](https://www.github.com) or their own personal web-pages.  These packages may not have undergone any form of quality assurance.   Note that many packages have their own website, but the package itself is distributed via CRAN.
+Some authors distribute packages via [GitHub](https://www.github.com) or their own personal web-pages.  These packages may not have undergone any form of quality assurance.   Note that many packages have their own website, but the package itself is distributed via CRAN.
 
 ### Finding packages to help with your research
 
@@ -82,11 +82,11 @@ library("tidyverse")
 
 ``` output
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.4     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -151,12 +151,17 @@ To seek help on special operators, use quotes:
 ## Getting help on packages
 
 Many packages come with "vignettes": tutorials and extended example documentation.
-Without any arguments, `vignette()` will list all vignettes for all installed packages;
-`vignette(package="package-name")` will list all available vignettes for
-`package-name`, and `vignette("vignette-name")` will open the specified vignette.
+Without any arguments, `browseVignettes()` will open a page in your web browser with an index of all vignettes for all installed packages - this takes a few seconds to load!
+
+To browse vignettes for a single package, use `browseVignettes(package = "package-name")`. Click on the "HTML" hyperlink next to a vignette title to open the vignette in HTML format.
 
 If a package doesn't have any vignettes, you can usually find help by typing
 `help("package-name")`, or `package?package-name`.
+
+Posit (the company that develop RStudio) and other members of the R community 
+have also provided 
+[cheatsheets](https://opensource.posit.co/resources/cheatsheets/?by=&languages=R) 
+for many R packages and data science tasks.
 
 ## When you kind of remember the function
 
@@ -166,38 +171,42 @@ If you're not sure what package a function is in, or how it's specifically spell
 ``` r
 ??function_name
 ```
+
+# Other ways to get help
+
+There are several other ways that people often get help when they are stuck with their R code.
+
+* Search the internet: paste the last line of your error message or “R” and a short description of what you want to do into your favorite search engine and you will usually find several examples where other people have encountered the same problem and came looking for help.
+* Ask somebody “in the real world”. If you have a colleague or friend with more expertise in R than you have, show them the problem you are having and ask them for help.
+* Sometimes, the act of articulating your question can help you to identify what is going wrong. This is known as “rubber duck debugging” among programmers.
+
 ::: callout
 
-## Citing R and R packages
+Tip: Generative AI
 
-If you use R in your work you should cite it, and the packages you use. The
-`citation()` command will return the appropriate citation for R itself.  
-`citation(packagename)` will provide the citation for `packagename`.
+While responses from generative AI tools can often be helpful, they are not always reliable. 
+It is essential to verify the accuracy of information found this way, which requires being able to understand code as you read it and being able to fix any errors that occur when you try running code provided by genAI tools.
+We recommend avoiding using genAI tools as an R beginner:
+
+* For most beginner issues, reliable help and answers can be found through an internet search
+* Trying to solve issues yourself - with the help of teaching materials and the R help files - will help you build the foundational knowledge to judge genAI responses
 
 :::
 
-## When your code doesn't work: seeking help from your peers
+## When your code doesn't work
 
-If you're having trouble using a function, 9 times out of 10,
-the answers you are seeking have already been answered on
-[Stack Overflow](https://stackoverflow.com/). You can search using
-the `[r]` tag.
+Try to create a **minimal reproducible example**. Start a fresh R session and 
+in a new R script, try to reproduce the problem you are facing with minimal code
 
-If you can't find the answer, there are a few useful functions to
-help you ask a question from your peers:
-
-
-``` r
-?dput
-```
-
-Will dump the data you're working with into a format so that it can
-be copy and pasted by anyone else into their R session.
-
+* Avoid loading packages that must be installed from CRAN or elsewhere. 
+    * If the issue is with a function from an add-on package, try to only load that package.
+* Avoid sharing data
+    * Use an in-built data set like `mtcars`
+    * Create a toy data frame or other small objects (vectors, lists)
 
 ## Package versions
 
-Many of the packages in R are frequently updated.  This does mean that code written for one version of a package may not work with another version of the package (or, potentially even worse, run but give a _different_ result).  The `sessionInfo()` command prints information about the system, and the names and versions of packages that have been loaded.  You should include the output of `sessionInfo()` somewhere in your research.  The [packrat package](https://rstudio.github.io/packrat/) provides a way of keeping specific versions of packages associated with each of your projects.
+Many of the packages in R are frequently updated.  This does mean that code written for one version of a package may not work with another version of the package (or, potentially even worse, run but give a _different_ result).  The `sessionInfo()` command prints information about the system, and the names and versions of packages that have been loaded.  You should include the output of `sessionInfo()` somewhere in your research.
 
 
 
@@ -223,10 +232,10 @@ Hint: use `??"read table"` to look up functions related to reading in tabular da
 ## Solution to Challenge 1
 
 The standard R function for reading tab-delimited files with a period
-decimal separator is read.delim(). You can also do this with
+decimal separator is `read.delim()`. You can also do this with
 `read.table(file, sep="\t")` (the period is the *default* decimal
-separator for `read.table()`), although you may have to change
-the `comment.char` argument as well if your data file contains
+separator for `read.table()`). With either function, you may have to change
+the `comment.char` argument if your data file contains
 hash (#) characters.
 
 
@@ -251,177 +260,29 @@ we cover `dplyr`.
 
 
 ``` r
-vignette(package="dplyr")
-```
-Shows that there are several vignettes included in the package.  The `dplyr`
-vignette looks like it might be useful later.  We can view this with:
-
-
-``` r
-vignette(package="dplyr", "dplyr")
+browseVignettes(package="dplyr")
 ```
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Managing your environment
+::: callout
 
-There are a few useful commands you can use to interact with the R session.
-Let's create tow varables `x` and `y` to demonstrate this. 
+## Citing R and R packages
 
+If you use R in your work you should cite it, and the packages you use. The
+`citation()` command will return the appropriate citation for R itself.  
+`citation(packagename)` will provide the citation for `packagename`. 
+In both cases, the default citation includes the version number you are currently using.
 
-``` r
-x <- 5
-y <- "birds"
-```
-
-`ls` will list all of the variables and functions stored in the global environment
-(your working R session):
-
-
-``` r
-ls()
-```
-
-
-``` output
-[1] "x" "y"
-```
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: hidden objects
-
-Like in the shell, `ls` will hide any variables or functions starting
-with a "." by default. To list all objects, type `ls(all.names=TRUE)`
-instead
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-Note here that we didn't give any arguments to `ls`, but we still
-needed to give the parentheses to tell R to call the function.
-
-If we type `ls` by itself, R prints a bunch of code instead of a listing of objects.
-
-
-``` r
-ls
-```
-
-``` output
-function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
-    pattern, sorted = TRUE) 
-{
-    if (!missing(name)) {
-        pos <- tryCatch(name, error = function(e) e)
-        if (inherits(pos, "error")) {
-            name <- substitute(name)
-            if (!is.character(name)) 
-                name <- deparse(name)
-            warning(gettextf("%s converted to character string", 
-                sQuote(name)), domain = NA)
-            pos <- name
-        }
-    }
-    all.names <- .Internal(ls(envir, all.names, sorted))
-    if (!missing(pattern)) {
-        if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
-            ll != length(grep("]", pattern, fixed = TRUE))) {
-            if (pattern == "[") {
-                pattern <- "\\["
-                warning("replaced regular expression pattern '[' by  '\\\\['")
-            }
-            else if (length(grep("[^\\\\]\\[<-", pattern))) {
-                pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
-                warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
-            }
-        }
-        grep(pattern, all.names, value = TRUE)
-    }
-    else all.names
-}
-<bytecode: 0x55c460729d60>
-<environment: namespace:base>
-```
-
-What's going on here?
-
-Like everything in R, `ls` is the name of an object, and entering the name of
-an object by itself prints the contents of the object. The object `x` that we
-created earlier contains 5:
-
-
-``` r
-x
-```
-
-``` output
-[1] 5
-```
-
-The object `ls` contains the R code that makes the `ls` function work! We'll talk
-more about how functions work and start writing our own later.
-
-You can use `rm` to delete objects you no longer need:
-
-
-``` r
-rm(x)
-```
-
-If you have lots of things in your environment and want to delete all of them,
-you can pass the results of `ls` to the `rm` function:
-
-
-``` r
-rm(list = ls())
-```
-
-In this case we've combined the two. Like the order of operations, anything
-inside the innermost parentheses is evaluated first, and so on.
-
-In this case we've specified that the results of `ls` should be used for the
-`list` argument in `rm`. When assigning values to arguments by name, you *must*
-use the `=` operator!!
-
-If instead we use `<-`, there will be unintended side effects, or you may get an error message:
-
-
-``` r
-rm(list <- ls())
-```
-
-``` error
-Error in rm(list <- ls()): ... must contain names or character strings
-```
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: Warnings vs. Errors
-
-Pay attention when R does something unexpected! Errors, like above,
-are thrown when R cannot proceed with a calculation. Warnings on the
-other hand usually mean that the function has run, but it probably
-hasn't worked as expected.
-
-In both cases, the message that R prints out usually give you clues
-how to fix a problem.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Further reading
-We recommend the following resources for some additional reading on the topic of this episode:
-- [Quick R](https://www.statmethods.net/)
-- [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
-- [Cookbook for R](https://www.cookbook-r.com/)
+:::
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use install.packages() to install packages (libraries) from CRAN
-- Use `help()` to get online help in R
-- Use ls() to list the variables in a program
-- Use rm() to delete objects in a program
+- Use `install.packages()` to install packages from CRAN
+- Use `?` to get help on functions in R
+- Use `browseVignettes()` to browse long-form package documentation 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

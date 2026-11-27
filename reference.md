@@ -25,12 +25,47 @@ title: 'Reference'
 - Use `all.equal` to compare numbers!
 - `<-` is the assignment operator. Anything to the right is evaluate, then
   stored in a variable named to the left.
-- `ls` lists all variables and functions you've created
-- `rm` can be used to remove them
-- When assigning values to function arguments, you *must* use `=`.
 
+## [Vectors](episodes/02-vectors.Rmd)
 
-## [Data structures](episodes/02-data-structures-and-subsetting.Rmd)
+**Special values:**
+  
+  - `?NA` missing values
+  - `?NaN` "not a number" for undefined values (e.g. `0/0`).
+  - `?Inf`, `-Inf` infinity.
+  
+  `NA` can occur in any atomic vector. `NaN`, and `Inf` can only
+  occur in complex, integer or numeric type vectors. Atomic vectors
+  are the building blocks for all other data structures. A `NULL` value
+  will occur in place of an entire data structure (but can occur as list
+  elements).
+
+**Useful functions for querying vectors:**
+
+- `?head` print the first `n` elements
+- `?tail` print the last `n` elements
+- `?length` get the number of elements
+
+Single elements or subsets of vectors can be accessed with `[`, selecting 
+elements by
+ * index,
+ * name, or
+ * a logical vector.
+
+## [Project management with RStudio](episodes/03-project-management-with-rstudio.Rmd)
+
+- To create a new project, go to File -> New Project
+- To open a project, double click the `.Rproj` file in your file browser
+
+## [Data structures](episodes/04-data-structures.Rmd)
+
+- `read.csv` to read in data in a regular structure
+  - `sep` argument to specify the separator
+    - "," for comma separated
+    - "\\t" for tab separated
+  - Other arguments:
+    - `header=TRUE` if there is a header row
+- `write.csv` to write out a data frame as a CSV file
 
 Individual values in R must be one of 5 **data types**, multiple values can be grouped in **data structures**.
 
@@ -46,57 +81,31 @@ Individual values in R must be one of 5 **data types**, multiple values can be g
   - `?complex` complex numbers
   - `?logical` TRUE or FALSE values
   
-  **Special types:**
-  
-  - `?NA` missing values
-  - `?NaN` "not a number" for undefined values (e.g. `0/0`).
-  - `?Inf`, `-Inf` infinity.
-  - `?NULL` a data structure that doesn't exist
-  
-  `NA` can occur in any atomic vector. `NaN`, and `Inf` can only
-  occur in complex, integer or numeric type vectors. Atomic vectors
-  are the building blocks for all other data structures. A `NULL` value
-  will occur in place of an entire data structure (but can occur as list
-  elements).
+- `?names` retrieve or modify the names of an atomic vector or list (or
+  columns of a data frame).
 
 **Basic data structures in R:**
 
 - atomic `?vector` (can only contain one type)
 - `?list` (containers for other objects)
 - `?data.frame` two dimensional objects whose columns can contain different types of data
-- `?matrix` two dimensional objects that can contain only one type of data.
-- `?factor` vectors that contain predefined categorical data.
-- `?array` multi-dimensional objects that can only contain one type of data
 
-Remember that matrices are really atomic vectors underneath the hood, and that
-data.frames are really lists underneath the hood (this explains some of the weirder
-behaviour of R).
-
+## [Exploring Data Frames](episodes/05-exploring-dataframes.Rmd)
+    
 **Useful functions for querying data structures:**
 
 - `?str` structure, prints out a summary of the whole data structure
 - `?typeof` tells you the type inside an atomic vector
 - `?class` what is the data structure?
-- `?head` print the first `n` elements (rows for two-dimensional objects)
-- `?tail` print the last `n` elements (rows for two-dimensional objects)
+- `?head` print the first `n` rows
+- `?tail` print the last `n` rows
 - `?rownames`, `?colnames`, `?dimnames` retrieve or modify the row names
   and column names of an object.
-- `?names` retrieve or modify the names of an atomic vector or list (or
-  columns of a data.frame).
-- `?length` get the number of elements in an atomic vector
+- `?length` get the number of columns in a data frame
 - `?nrow`, `?ncol`, `?dim` get the dimensions of a n-dimensional object
   (Won't work on atomic vectors or lists).
 
-## [Exploring Data Frames](episodes/03-exploring-dataframes.Rmd)
-
-- `read.csv` to read in data in a regular structure
-  - `sep` argument to specify the separator
-    - "," for comma separated
-    - "\\t" for tab separated
-  - Other arguments:
-    - `header=TRUE` if there is a header row
-
-## [Seeking help](episodes/04-seeking-help.Rmd)
+## [Seeking help](episodes/06-seeking-help.Rmd)
 
 - To access help for a function type `?function_name` or `help(function_name)`
 - Use quotes for special operators e.g. `?"+"`
@@ -107,17 +116,17 @@ behaviour of R).
   - `sessionInfo()` will give details of your setup that others may need for debugging.
 
 
-## [Dataframe manipulation with dplyr](episodes/05-dplyr.Rmd)
+## [Dataframe manipulation with dplyr](episodes/07-dplyr.Rmd)
 
 - `library(dplyr)`
 - `?select` to extract variables by name.
 - `?filter` return rows with matching conditions.
 - `?group_by` group data by one of more variables.
 - `?summarize` summarize multiple values to a single value.
-- `?mutate` add new variables to a data.frame.
+- `?mutate` add new variables to a data frame.
 - Combine operations using the `?"|>"` pipe operator.
 
-## [Creating publication quality graphics](episodes/06-plot-ggplot2.Rmd)
+## [Creating publication quality graphics](episodes/08-plot-ggplot2.Rmd)
 
 - figures can be created with the grammar of graphics:
   - `library(ggplot2)`

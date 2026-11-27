@@ -21,9 +21,9 @@ source: Rmd
 
 
 
-At this point, you've seen it all: in the last lesson, we toured all the basic
+In the last episode, we toured the basic
 data types and data structures in R. Everything you do will be a manipulation of
-those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this lesson, we'll learn a few more things
+those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this episode, we'll learn a few more things
 about working with data frames.
 
 ## Understanding our Data frame
@@ -48,13 +48,13 @@ summary(weather)
 ```
 
 ``` output
-    island           temperature         snowfall     
- Length:3           Min.   :-2.6000   Min.   :0.0000  
- Class :character   1st Qu.:-0.5500   1st Qu.:0.0000  
- Mode  :character   Median : 1.5000   Median :0.0000  
-                    Mean   : 0.1667   Mean   :0.3333  
-                    3rd Qu.: 1.5500   3rd Qu.:0.5000  
-                    Max.   : 1.6000   Max.   :1.0000  
+       island   temperature         snowfall     
+ Length   :3   Min.   :-2.6000   Min.   :0.0000  
+ N.unique :3   1st Qu.:-0.5500   1st Qu.:0.0000  
+ N.blank  :0   Median : 1.5000   Median :0.0000  
+ Min.nchar:5   Mean   : 0.1667   Mean   :0.3333  
+ Max.nchar:9   3rd Qu.: 1.5500   3rd Qu.:0.5000  
+               Max.   : 1.6000   Max.   :1.0000  
 ```
 
 ``` r
@@ -151,7 +151,8 @@ cbind(weather, sun)
 ```
 
 ``` error
-Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 3, 4
+Error in `data.frame()`:
+! arguments imply differing number of rows: 3, 4
 ```
 
 ``` r
@@ -160,7 +161,8 @@ cbind(weather, sun)
 ```
 
 ``` error
-Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 3, 2
+Error in `data.frame()`:
+! arguments imply differing number of rows: 3, 2
 ```
 
 Why didn't this work? Of course, R wants to see one element in our new column
@@ -196,7 +198,7 @@ data frame are lists:
 
 
 ``` r
-new_row <- list("deception", -3.45, TRUE, 13)
+new_row <- list("deception", -3.45, 1, 13)
 weather <- rbind(weather, new_row)
 ```
 
@@ -373,8 +375,7 @@ df <- cbind(df, coffeetime = c(TRUE,TRUE))
 
 - Use `cbind()` to add a new column to a data frame.
 - Use `rbind()` to add a new row to a data frame.
-- Use `str()`, `summary()`, nrow()`, `ncol()`, `dim()`, `colnames()`, `head()`, and `typeof()` to understand the structure of a data frame.
-- Read in a csv file using `read.csv()`.
+- Use `str()`, `summary()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `head()`, and `typeof()` to understand the structure of a data frame.
 - Understand what `length()` of a data frame represents.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
